@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Login | SmartServe</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Login to your SmartServe account to book professional services">
+    <meta name="keywords" content="login, smartserve, account, professional services, booking">
+    <meta name="author" content="SmartServe">
+    <meta name="robots" content="noindex, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Login | SmartServe">
+    <meta property="og:description" content="Login to your SmartServe account">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smartserve.com/login">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3034/3034848.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3034/3034848.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Bootstrap (for responsive utilities only) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Auth CSS -->
+    <link rel="stylesheet" href="../css/auth.css">
+    
+    <!-- Critical CSS (inline for performance) -->
+    <style>
+        /* Minimal critical CSS */
+        .auth-wrapper {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content -->
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <div class="auth-card">
+                <!-- Header -->
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <i class="fas fa-concierge-bell"></i>
+                        <h1>SmartServe</h1>
+                    </div>
+                    <h2 class="auth-title">Welcome Back</h2>
+                    <p class="auth-subtitle">Sign in to your account to continue</p>
+                </div>
+                
+                <!-- Alerts -->
+                <div id="alertContainer">
+                    <!-- Alerts will be inserted here -->
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form" novalidate>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               class="form-control" 
+                               placeholder="Enter your email"
+                               required
+                               aria-required="true"
+                               aria-describedby="emailHelp">
+                        <div class="invalid-feedback" id="emailError">
+                            Please enter a valid email address.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-field">
+                            <input type="password" 
+                                   id="password" 
+                                   name="password" 
+                                   class="form-control" 
+                                   placeholder="Enter your password"
+                                   required
+                                   aria-required="true"
+                                   minlength="6"
+                                   aria-describedby="passwordHelp">
+                            <button type="button" class="password-toggle" id="togglePassword" aria-label="Show password">
+                                <i class="fas fa-eye" id="passwordIcon"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback" id="passwordError">
+                            Password must be at least 6 characters.
+                        </div>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">
+                            Remember me
+                        </label>
+                        <a href="#forgot-password" class="auth-link ms-auto" id="forgotPassword">
+                            Forgot password?
+                        </a>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn auth-btn-primary" id="loginBtn">
+                        Sign In
+                    </button>
+                </form>
+                
+                <!-- Divider -->
+                <div class="auth-divider">
+                    <span>Or continue with</span>
+                </div>
+                
+                <!-- Social Login -->
+                <div class="social-login">
+                    <a href="#" class="social-btn social-btn-google" aria-label="Sign in with Google">
+                        <i class="fab fa-google"></i>
+                        <span>Continue with Google</span>
+                    </a>
+                    <a href="#" class="social-btn social-btn-facebook" aria-label="Sign in with Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Continue with Facebook</span>
+                    </a>
+                </div>
+                
+                <!-- Test Credentials -->
+                <div class="test-credentials">
+                    <h6>Test Account</h6>
+                    <p><strong>Email:</strong> test@example.com</p>
+                    <p><strong>Password:</strong> password123</p>
+                </div>
+                
+                <!-- Links -->
+                <div class="auth-links">
+                    <p>Don't have an account? <a href="register.html" class="auth-link">Sign up here</a></p>
+                    <p>By signing in, you agree to our <a href="#" class="auth-link">Terms of Service</a> and <a href="#" class="auth-link">Privacy Policy</a></p>
+                    <p><a href="../index.html" class="auth-link"><i class="fas fa-arrow-left me-1"></i> Back to Home</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (for modal if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Auth JavaScript -->
+    <script>
+        // DOM Elements
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordIcon = document.getElementById('passwordIcon');
+        const alertContainer = document.getElementById('alertContainer');
+        
+        // Initialize form state
+        let isSubmitting = false;
+        
+        // Show alert function
+        function showAlert(type, message, duration = 5000) {
+            // Remove existing alerts
+            const existingAlerts = alertContainer.querySelectorAll('.auth-alert');
+            existingAlerts.forEach(alert => alert.remove());
+            
+            // Create alert element
+            const alert = document.createElement('div');
+            alert.className = `auth-alert alert-${type} show`;
+            alert.setAttribute('role', 'alert');
+            alert.setAttribute('aria-live', 'assertive');
+            
+            let icon = 'info-circle';
+            if (type === 'success') icon = 'check-circle';
+            if (type === 'danger') icon = 'exclamation-circle';
+            
+            alert.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <div class="auth-alert-content">${message}</div>
+                <button type="button" class="auth-alert-close" aria-label="Close alert">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add to container
+            alertContainer.appendChild(alert);
+            
+            // Auto-remove after duration
+            if (duration) {
+                setTimeout(() => {
+                    alert.remove();
+                }, duration);
+            }
+            
+            // Close button functionality
+            const closeBtn = alert.querySelector('.auth-alert-close');
+            closeBtn.addEventListener('click', () => alert.remove());
+            
+            // Focus on alert for screen readers
+            alert.focus();
+        }
+        
+        // Toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            
+            // Update icon
+            passwordIcon.className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+            
+            // Update aria-label
+            togglePassword.setAttribute('aria-label', 
+                type === 'password' ? 'Show password' : 'Hide password'
+            );
+        }
+        
+        // Validate form
+        function validateForm() {
+            let isValid = true;
+            
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!email.value.trim()) {
+                email.classList.add('is-invalid');
+                emailError.textContent = 'Email is required';
+                isValid = false;
+            } else if (!emailRegex.test(email.value)) {
+                email.classList.add('is-invalid');
+                emailError.textContent = 'Please enter a valid email address';
+                isValid = false;
+            } else {
+                email.classList.remove('is-invalid');
+                email.classList.add('is-valid');
+            }
+            
+            // Password validation
+            const password = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+            
+            if (!password.value) {
+                password.classList.add('is-invalid');
+                passwordError.textContent = 'Password is required';
+                isValid = false;
+            } else if (password.value.length < 6) {
+                password.classList.add('is-invalid');
+                passwordError.textContent = 'Password must be at least 6 characters';
+                isValid = false;
+            } else {
+                password.classList.remove('is-invalid');
+                password.classList.add('is-valid');
+            }
+            
+            return isValid;
+        }
+        
+        // Clear validation states
+        function clearValidation() {
+            const inputs = loginForm.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.classList.remove('is-invalid', 'is-valid');
+            });
+        }
+        
+        // Handle form submission
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            if (isSubmitting) return;
+            
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Get form data
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            // Update button state
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<span class="spinner"></span> Signing in...';
+            isSubmitting = true;
+            
+            try {
+                // Make API request
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password }),
+                    credentials: 'include' // Important for sessions
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Success
+                    showAlert('success', data.message || 'Login successful! Redirecting...');
+                    
+                    // Store email if remember me is checked
+                    if (rememberMe) {
+                        localStorage.setItem('rememberedEmail', email);
+                    } else {
+                        localStorage.removeItem('rememberedEmail');
+                    }
+                    
+                    // Redirect after delay
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1500);
+                    
+                } else {
+                    // Error
+                    showAlert('danger', data.message || 'Login failed. Please try again.');
+                    
+                    // Clear password
+                    document.getElementById('password').value = '';
+                    clearValidation();
+                    
+                    // Reset button
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = 'Sign In';
+                    isSubmitting = false;
+                }
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                showAlert('danger', 'Network error. Please check your connection and try again.');
+                
+                // Reset button
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = 'Sign In';
+                isSubmitting = false;
+            }
+        }
+        
+        // Check if already logged in
+        async function checkAuthStatus() {
+            try {
+                const response = await fetch('/api/user', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    // Already logged in, redirect to dashboard
+                    window.location.href = '/dashboard';
+                }
+            } catch (error) {
+                // Not logged in, stay on page
+                console.log('Not authenticated');
+            }
+        }
+        
+        // Load remembered email
+        function loadRememberedEmail() {
+            const rememberedEmail = localStorage.getItem('rememberedEmail');
+            if (rememberedEmail) {
+                document.getElementById('email').value = rememberedEmail;
+                document.getElementById('rememberMe').checked = true;
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check auth status
+            checkAuthStatus();
+            
+            // Load remembered email
+            loadRememberedEmail();
+            
+            // Event listeners
+            loginForm.addEventListener('submit', handleLogin);
+            togglePassword.addEventListener('click', togglePasswordVisibility);
+            
+            // Allow password toggle on Enter key
+            togglePassword.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    togglePasswordVisibility();
+                }
+            });
+            
+            // Real-time validation
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            
+            emailInput.addEventListener('blur', () => validateForm());
+            passwordInput.addEventListener('blur', () => validateForm());
+            
+            // Clear validation on input
+            emailInput.addEventListener('input', () => {
+                emailInput.classList.remove('is-invalid', 'is-valid');
+            });
+            
+            passwordInput.addEventListener('input', () => {
+                passwordInput.classList.remove('is-invalid', 'is-valid');
+            });
+            
+            // Forgot password
+            document.getElementById('forgotPassword').addEventListener('click', function(e) {
+                e.preventDefault();
+                showAlert('info', 'Password reset feature coming soon!');
+            });
+        });
+        
+        // Handle Enter key in form
+        loginForm.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.tagName !== 'BUTTON' && e.target.type !== 'submit') {
+                e.preventDefault();
+                handleLogin(e);
+            }
+        });
+    </script>
+</body>
+</html>

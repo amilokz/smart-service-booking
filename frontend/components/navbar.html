@@ -1,0 +1,71 @@
+<!-- frontend/components/navbar.html -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/" aria-label="SmartServe Home">
+            <i class="fas fa-concierge-bell"></i>
+            SmartServe
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#how-it-works">How It Works</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#testimonials">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                <!-- Protected Links (will be handled by app.js) -->
+                <li class="nav-item d-none d-lg-block">
+                    <a class="nav-link protected-link" href="/dashboard" data-href="/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item d-none d-lg-block">
+                    <a class="nav-link protected-link" href="/booking-history" data-href="/booking-history">Bookings</a>
+                </li>
+            </ul>
+            <div class="navbar-auth-buttons ms-lg-3 mt-3 mt-lg-0">
+                <!-- Auth buttons will be dynamically loaded by app.js -->
+                <div class="d-flex gap-2">
+                    <a href="/login" class="btn btn-outline-light">Login</a>
+                    <a href="/register" class="btn btn-primary">Sign Up Free</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Protected Links (hidden in mobile dropdown) -->
+<div class="collapse navbar-collapse" id="navbarNavMobile">
+    <div class="navbar-nav mt-2">
+        <a class="nav-link protected-link" href="/dashboard" data-href="/dashboard">
+            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+        </a>
+        <a class="nav-link protected-link" href="/profile" data-href="/profile">
+            <i class="fas fa-user me-2"></i>Profile
+        </a>
+        <a class="nav-link protected-link" href="/booking-history" data-href="/booking-history">
+            <i class="fas fa-history me-2"></i>Booking History
+        </a>
+        <a class="nav-link" href="/logout" id="mobileLogoutBtn" style="display: none;">
+            <i class="fas fa-sign-out-alt me-2"></i>Logout
+        </a>
+    </div>
+</div>
+
+<script>
+    // Update mobile menu based on auth state
+    document.addEventListener('DOMContentLoaded', function() {
+        // This will be handled by the main app.js
+    });
+</script>

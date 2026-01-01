@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>SmartServe | Professional Service Booking Platform</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Book verified professionals for all your home and business needs. Fast, reliable, and hassle-free service booking.">
+    <meta name="keywords" content="service booking, home services, professional services, plumbing, electrical, cleaning, car wash, home repair, maintenance">
+    <meta name="author" content="SmartServe">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="SmartServe | Professional Service Booking Platform">
+    <meta property="og:description" content="Book verified professionals for all your home and business needs. Fast, reliable, and hassle-free service booking.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smartserve.com">
+    <meta property="og:image" content="https://smartserve.com/og-image.jpg">
+    <meta property="og:image:alt" content="SmartServe - Professional Service Booking">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SmartServe | Professional Service Booking Platform">
+    <meta name="twitter:description" content="Book verified professionals for all your home and business needs.">
+    <meta name="twitter:image" content="https://smartserve.com/twitter-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3034/3034848.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3034/3034848.png">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://my.spline.design">
+    
+    <!-- Critical CSS (Inline for performance) -->
+    <style>
+        /* Minimal critical CSS - only what's needed for above-the-fold */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --primary-light: #4895ef;
+            --success: #4cc9f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .hero {
+            background: #000000;
+            color: white;
+            padding: 10rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+    
+    <!-- Deferred CSS -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+    </noscript>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-main sr-only sr-only-focusable">Skip to main content</a>
+    
+    <!-- Include Navbar Component -->
+    <div id="navbar-container">
+        <!-- Navbar will be loaded here -->
+    </div>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Text Content -->
+                    <div class="col-lg-6 col-xl-6 hero-content" data-aos="fade-right" data-aos-delay="100">
+                        <h1 id="hero-title">Professional Services, <span class="text-success">Simplified</span></h1>
+                        <p>Book verified professionals for all your needs. From home repairs to business services, we connect you with trusted experts in minutes.</p>
+                        <div class="d-flex flex-wrap gap-3 mb-4">
+                            <a href="#register" class="btn btn-primary" aria-label="Get started for free">Get Started Free</a>
+                            <a href="#services" class="btn btn-outline-light" aria-label="Explore our services">Explore Services</a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="hero-stat">
+                                <div class="hero-stat-number">5K+</div>
+                                <div class="hero-stat-label">Happy Customers</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="hero-stat-number">200+</div>
+                                <div class="hero-stat-label">Verified Pros</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="hero-stat-number">24/7</div>
+                                <div class="hero-stat-label">Support</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 3D Model Container -->
+                    <div class="col-lg-6 col-xl-6 position-relative">
+                        <div class="hero-3d-container">
+                            <div class="hero-3d floating" data-aos="fade-left" data-aos-delay="300" aria-hidden="true">
+                                <iframe 
+                                    src='https://my.spline.design/cubeandballs-JQQxk0eQJTXbTHeb1hGLccAn/' 
+                                    frameborder='0'
+                                    loading="lazy"
+                                    title="3D Animation of Services"
+                                    aria-label="Interactive 3D animation"
+                                    allow="accelerometer; gyroscope"
+                                ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features" id="features" aria-labelledby="features-title">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 id="features-title">Why Choose SmartServe?</h2>
+                    <p>Experience the difference with our customer-first approach</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                            </div>
+                            <h3>Verified Professionals</h3>
+                            <p>All service providers are thoroughly vetted and background checked for your safety.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-clock" aria-hidden="true"></i>
+                            </div>
+                            <h3>Same-Day Service</h3>
+                            <p>Get your service completed on the same day with our fast booking system.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                            </div>
+                            <h3>Transparent Pricing</h3>
+                            <p>No hidden fees. See the exact price before you book any service.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-headset" aria-hidden="true"></i>
+                            </div>
+                            <h3>24/7 Support</h3>
+                            <p>Our customer support team is available round the clock to assist you.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="services" id="services" aria-labelledby="services-title">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 id="services-title">Popular Services</h2>
+                    <p>Choose from our wide range of professional services</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-card" role="button" tabindex="0" onclick="window.location.href='#book-service'">
+                            <div class="service-img">
+                                <i class="fas fa-faucet" aria-hidden="true"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3>Plumbing Services</h3>
+                                <p>Expert plumbing solutions for leaks, installations, and repairs.</p>
+                                <ul class="service-features">
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Leak detection & repair</li>
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Pipe installation</li>
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Drain cleaning</li>
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Emergency services</li>
+                                </ul>
+                                <button class="btn btn-primary w-100" onclick="window.location.href='#book-service'" aria-label="Book plumbing service">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-card" role="button" tabindex="0" onclick="window.location.href='#book-service'">
+                            <div class="service-img">
+                                <i class="fas fa-bolt" aria-hidden="true"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3>Electrical Services</h3>
+                                <p>Certified electricians for wiring, repairs, and installations.</p>
+                                <ul class="service-features">
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Wiring & installations</li>
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Electrical repairs</li>
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Safety inspections</li>
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Lighting solutions</li>
+                                </ul>
+                                <button class="btn btn-primary w-100" onclick="window.location.href='#book-service'" aria-label="Book electrical service">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-card" role="button" tabindex="0" onclick="window.location.href='#book-service'">
+                            <div class="service-img">
+                                <i class="fas fa-broom" aria-hidden="true"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3>Cleaning Services</h3>
+                                <p>Professional residential and commercial cleaning.</p>
+                                <ul class="service-features">
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Deep cleaning</li>
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Office cleaning</li>
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Eco-friendly</li>
+                                    <li><i class="fas fa-check" aria-hidden="true"></i> Regular maintenance</li>
+                                </ul>
+                                <button class="btn btn-primary w-100" onclick="window.location.href='#book-service'" aria-label="Book cleaning service">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="how-it-works" id="how-it-works" aria-labelledby="how-it-works-title">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 id="how-it-works-title">How It Works</h2>
+                    <p>Get your service done in three simple steps</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <h4>Choose Service</h4>
+                            <p>Select from our wide range of professional services that match your needs.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <h4>Book & Schedule</h4>
+                            <p>Pick a date and time that works for you. Get instant confirmation.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <h4>Relax & Enjoy</h4>
+                            <p>Our verified professional arrives on time and delivers quality service.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials" id="testimonials" aria-labelledby="testimonials-title">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 id="testimonials-title">Customer Reviews</h2>
+                    <p>See what our customers have to say about their experience</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="testimonial-card">
+                            <div class="testimonial-text">
+                                The plumber arrived right on time and fixed my leaking pipe professionally. Highly recommended!
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar" aria-hidden="true">SA</div>
+                                <div class="author-info">
+                                    <h5>Sarah Ahmed</h5>
+                                    <p>Rawalpindi</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="testimonial-card">
+                            <div class="testimonial-text">
+                                Best car wash service I've ever used. They came to my office and did an amazing job!
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar" aria-hidden="true">AK</div>
+                                <div class="author-info">
+                                    <h5>Ali Khan</h5>
+                                    <p>Islamabad</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="testimonial-card">
+                            <div class="testimonial-text">
+                                The cleaning team was professional and thorough. My apartment has never been cleaner!
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="author-avatar" aria-hidden="true">FR</div>
+                                <div class="author-info">
+                                    <h5>Fatima Raza</h5>
+                                    <p>Lahore</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta" aria-labelledby="cta-title">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center" data-aos="fade-up">
+                        <h2 id="cta-title">Ready to Experience Hassle-Free Service?</h2>
+                        <p>Join thousands of satisfied customers and book your first service today. No hidden fees, no complications.</p>
+                        <div class="cta-buttons">
+                            <a href="#register" class="btn btn-primary btn-lg">Get Started Free</a>
+                            <a href="#login" class="btn btn-secondary btn-lg">Login to Account</a>
+                        </div>
+                        <p class="mt-4" style="color: rgba(255, 255, 255, 0.6);">No credit card required for signup</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Include Footer Component -->
+    <div id="footer-container">
+        <!-- Footer will be loaded here -->
+    </div>
+
+    <!-- Deferred JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script src="js/app.js" defer></script>
+    
+    <!-- Component loader -->
+    <script>
+        // Load components dynamically
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load navbar
+            fetch('components/navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+            
+            // Load footer
+            fetch('components/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading footer:', error));
+        });
+    </script>
+</body>
+</html>

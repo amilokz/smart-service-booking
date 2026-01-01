@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Service | Smart Service Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a6df5;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .booking-container {
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .service-card {
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(42, 109, 245, 0.1);
+        }
+        
+        .service-card.selected {
+            border-color: var(--primary);
+            background-color: rgba(42, 109, 245, 0.05);
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+        
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .step.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .step.completed {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -10px;
+            width: 20px;
+            height: 2px;
+            background: #e2e8f0;
+        }
+        
+        .step:last-child::after {
+            display: none;
+        }
+        
+        .booking-section {
+            display: none;
+        }
+        
+        .booking-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .btn-primary-custom {
+            background: var(--primary);
+            border: none;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            border-radius: 10px;
+        }
+        
+        .btn-primary-custom:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(42, 109, 245, 0.3);
+        }
+        
+        .time-slot {
+            padding: 0.8rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .time-slot:hover {
+            border-color: var(--primary);
+            background: rgba(42, 109, 245, 0.05);
+        }
+        
+        .time-slot.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+        
+        .professional-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .professional-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .professional-card.selected {
+            border-color: var(--primary);
+            background: rgba(42, 109, 245, 0.05);
+        }
+        
+        .rating-stars {
+            color: #fbbf24;
+        }
+        
+        .back-btn {
+            background: none;
+            border: 2px solid #e2e8f0;
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="/">
+                <i class="fas fa-tools me-2"></i>Smart Service Booking
+            </a>
+            <div class="d-flex align-items-center">
+                <a href="/dashboard" class="btn btn-outline-primary me-2">
+                    <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                </a>
+                <a href="/logout" class="btn btn-light">
+                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Booking Container -->
+    <div class="booking-container">
+        <div class="container">
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <div class="step active" id="step1">1</div>
+                <div class="step" id="step2">2</div>
+                <div class="step" id="step3">3</div>
+                <div class="step" id="step4">4</div>
+            </div>
+
+            <!-- Step 1: Select Service -->
+            <div class="booking-section active" id="step1-section">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <h2 class="text-center">Select a Service</h2>
+                        <p class="text-center text-muted">Choose the service you need from our professional offerings</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4" id="services-container">
+                    <!-- Services will be loaded here -->
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-primary-custom" onclick="goToStep(2)" id="next-step1" disabled>
+                            Next: Select Date & Time <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Select Date & Time -->
+            <div class="booking-section" id="step2-section">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <h2>Select Date & Time</h2>
+                        <p class="text-muted">Choose when you'd like the service to be performed</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label fw-bold">Select Date</label>
+                        <input type="date" class="form-control form-control-lg" id="booking-date" min="">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label fw-bold">Preferred Time</label>
+                        <div class="row g-2" id="time-slots">
+                            <!-- Time slots will be generated -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Our professionals are available from 8:00 AM to 8:00 PM. Same-day bookings may be available.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12 d-flex justify-content-between">
+                        <button class="back-btn" onclick="goToStep(1)">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Services
+                        </button>
+                        <button class="btn btn-primary-custom" onclick="goToStep(3)" id="next-step2" disabled>
+                            Next: Select Professional <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Select Professional -->
+            <div class="booking-section" id="step3-section">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <h2>Select a Professional</h2>
+                        <p class="text-muted">Choose from our verified professionals</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4" id="professionals-container">
+                    <!-- Professionals will be loaded here -->
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12 d-flex justify-content-between">
+                        <button class="back-btn" onclick="goToStep(2)">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Date & Time
+                        </button>
+                        <button class="btn btn-primary-custom" onclick="goToStep(4)" id="next-step3" disabled>
+                            Next: Review & Confirm <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Review & Confirm -->
+            <div class="booking-section" id="step4-section">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <h2>Review & Confirm Booking</h2>
+                        <p class="text-muted">Please review your booking details before confirmation</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">Booking Summary</h5>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <h6>Service Details</h6>
+                                        <div id="summary-service"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Schedule</h6>
+                                        <div id="summary-schedule"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <h6>Professional</h6>
+                                        <div id="summary-professional"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Price</h6>
+                                        <div id="summary-price"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="booking-address" class="form-label fw-bold">Service Address</label>
+                                    <textarea class="form-control" id="booking-address" rows="3" 
+                                              placeholder="Enter the complete address where service is needed"></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="special-instructions" class="form-label fw-bold">Special Instructions (Optional)</label>
+                                    <textarea class="form-control" id="special-instructions" rows="3" 
+                                              placeholder="Any special requirements or instructions for the professional"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">Booking Total</h5>
+                                
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Service Fee:</span>
+                                    <span id="price-service">Rs 0</span>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Convenience Fee:</span>
+                                    <span>Rs 200</span>
+                                </div>
+                                
+                                <hr>
+                                
+                                <div class="d-flex justify-content-between mb-3 fw-bold fs-5">
+                                    <span>Total:</span>
+                                    <span id="price-total">Rs 0</span>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="terms-agreement">
+                                    <label class="form-check-label small" for="terms-agreement">
+                                        I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and 
+                                        <a href="#" class="text-decoration-none">Cancellation Policy</a>
+                                    </label>
+                                </div>
+                                
+                                <button class="btn btn-primary-custom w-100" onclick="confirmBooking()" id="confirm-btn" disabled>
+                                    <i class="fas fa-calendar-check me-2"></i> Confirm Booking
+                                </button>
+                                
+                                <div class="alert alert-warning mt-3 small">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    You can cancel or reschedule up to 2 hours before the scheduled time.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12 d-flex justify-content-between">
+                        <button class="back-btn" onclick="goToStep(3)">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Professionals
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <div class="mb-4">
+                        <div class="rounded-circle bg-success d-inline-flex align-items-center justify-content-center" 
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-check fa-2x text-white"></i>
+                        </div>
+                    </div>
+                    <h4 class="mb-3">Booking Confirmed!</h4>
+                    <p class="text-muted mb-4" id="success-message"></p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button class="btn btn-outline-primary" data-bs-dismiss="modal">
+                            Book Another Service
+                        </button>
+                        <button class="btn btn-primary-custom" onclick="window.location.href='/booking-history'">
+                            View My Bookings
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Booking data
+        let bookingData = {
+            service: null,
+            date: null,
+            time: null,
+            professional: null,
+            address: '',
+            instructions: ''
+        };
+
+        // Step navigation
+        function goToStep(step) {
+            // Update step indicators
+            for (let i = 1; i <= 4; i++) {
+                const stepEl = document.getElementById(`step${i}`);
+                const sectionEl = document.getElementById(`step${i}-section`);
+                
+                if (i === step) {
+                    stepEl.classList.add('active');
+                    sectionEl.classList.add('active');
+                } else if (i < step) {
+                    stepEl.classList.remove('active');
+                    stepEl.classList.add('completed');
+                    sectionEl.classList.remove('active');
+                } else {
+                    stepEl.classList.remove('active', 'completed');
+                    sectionEl.classList.remove('active');
+                }
+            }
+            
+            // Load data for step if needed
+            if (step === 2 && bookingData.service) {
+                generateTimeSlots();
+            } else if (step === 3 && bookingData.service && bookingData.date && bookingData.time) {
+                loadProfessionals();
+            } else if (step === 4 && bookingData.professional) {
+                updateSummary();
+            }
+        }
+
+        // Load services
+        async function loadServices() {
+            try {
+                const response = await fetch('/api/services');
+                const services = await response.json();
+                
+                const container = document.getElementById('services-container');
+                container.innerHTML = '';
+                
+                services.forEach(service => {
+                    const serviceCard = `
+                        <div class="col-md-6 col-lg-4">
+                            <div class="service-card card h-100 p-3" 
+                                 onclick="selectService(${service.id}, '${service.name}', ${service.price})"
+                                 id="service-${service.id}">
+                                <div class="text-center">
+                                    <div class="service-icon mx-auto">
+                                        <i class="fas ${service.icon || 'fa-wrench'}"></i>
+                                    </div>
+                                    <h5 class="mb-2">${service.name}</h5>
+                                    <p class="text-muted small mb-3">${service.description || 'Professional service'}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold text-primary">Rs ${service.price}</span>
+                                        <span class="badge bg-light text-dark">
+                                            <i class="fas fa-clock me-1"></i> ${service.duration_minutes || 120} min
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += serviceCard;
+                });
+            } catch (error) {
+                console.error('Error loading services:', error);
+            }
+        }
+
+        function selectService(id, name, price) {
+            // Remove selection from all services
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked service
+            const selectedCard = document.getElementById(`service-${id}`);
+            selectedCard.classList.add('selected');
+            
+            // Update booking data
+            bookingData.service = { id, name, price };
+            
+            // Enable next button
+            document.getElementById('next-step1').disabled = false;
+            
+            // Set minimum date for date picker
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('booking-date').min = tomorrow.toISOString().split('T')[0];
+        }
+
+        function generateTimeSlots() {
+            const timeSlots = [
+                '08:00', '09:00', '10:00', '11:00', 
+                '12:00', '13:00', '14:00', '15:00',
+                '16:00', '17:00', '18:00', '19:00'
+            ];
+            
+            const container = document.getElementById('time-slots');
+            container.innerHTML = '';
+            
+            timeSlots.forEach(time => {
+                const slot = document.createElement('div');
+                slot.className = 'col-6 col-md-4';
+                slot.innerHTML = `
+                    <div class="time-slot" onclick="selectTimeSlot(this, '${time}')">
+                        ${time}
+                    </div>
+                `;
+                container.appendChild(slot);
+            });
+        }
+
+        function selectTimeSlot(element, time) {
+            // Remove selection from all time slots
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            
+            // Add selection to clicked slot
+            element.classList.add('selected');
+            
+            // Update booking data
+            const date = document.getElementById('booking-date').value;
+            bookingData.date = date;
+            bookingData.time = time;
+            
+            // Enable next button
+            document.getElementById('next-step2').disabled = !date;
+        }
+
+        // Date picker change handler
+        document.getElementById('booking-date').addEventListener('change', function() {
+            bookingData.date = this.value;
+            document.getElementById('next-step2').disabled = !this.value;
+        });
+
+        // Load professionals
+        async function loadProfessionals() {
+            try {
+                // FIX: Include date and time in the API call
+                const url = `/api/available-professionals?serviceId=${bookingData.service.id}&date=${bookingData.date}&time=${bookingData.time}`;
+                const response = await fetch(url);
+                const professionals = await response.json();
+                
+                console.log('Loaded professionals:', professionals);
+                
+                const container = document.getElementById('professionals-container');
+                container.innerHTML = '';
+                
+                if (professionals.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-12">
+                            <div class="alert alert-warning">
+                                No professionals available for the selected date/time. Please try another slot.
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                professionals.forEach(professional => {
+                    const ratingStars = '★'.repeat(Math.floor(professional.rating)) + 
+                                       '☆'.repeat(5 - Math.floor(professional.rating));
+                    
+                    const professionalCard = `
+                        <div class="col-md-6">
+                            <div class="professional-card" 
+                                 onclick="selectProfessional(${professional.id}, '${professional.name}', ${professional.rating})"
+                                 id="professional-${professional.id}">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" 
+                                             style="width: 60px; height: 60px; font-size: 1.5rem;">
+                                            ${professional.name.charAt(0)}
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="mb-1">${professional.name}</h6>
+                                        <div class="rating-stars mb-1">${ratingStars}</div>
+                                        <div class="small text-muted">
+                                            <i class="fas fa-briefcase me-1"></i> ${professional.experience_years || 3}+ years experience
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += professionalCard;
+                });
+            } catch (error) {
+                console.error('Error loading professionals:', error);
+                // Show error message
+                const container = document.getElementById('professionals-container');
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Error loading professionals. Please try again.
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function selectProfessional(id, name, rating) {
+            // Remove selection from all professionals
+            document.querySelectorAll('.professional-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked professional
+            const selectedCard = document.getElementById(`professional-${id}`);
+            selectedCard.classList.add('selected');
+            
+            // Update booking data
+            bookingData.professional = { id, name, rating };
+            
+            // Enable next button
+            document.getElementById('next-step3').disabled = false;
+        }
+
+        function updateSummary() {
+            // Service details
+            document.getElementById('summary-service').innerHTML = `
+                <p class="mb-1"><strong>${bookingData.service.name}</strong></p>
+                <p class="text-muted small mb-0">Professional ${bookingData.service.name.toLowerCase()} service</p>
+            `;
+            
+            // Schedule
+            const bookingDate = new Date(`${bookingData.date}T${bookingData.time}`);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('summary-schedule').innerHTML = `
+                <p class="mb-1"><strong>${bookingDate.toLocaleDateString('en-US', options)}</strong></p>
+                <p class="text-muted small mb-0">${bookingData.time}</p>
+            `;
+            
+            // Professional
+            document.getElementById('summary-professional').innerHTML = `
+                <p class="mb-1"><strong>${bookingData.professional.name}</strong></p>
+                <p class="text-muted small mb-0">${bookingData.professional.rating} ★ Rating</p>
+            `;
+            
+            // Price
+            const servicePrice = bookingData.service.price;
+            const convenienceFee = 200;
+            const total = servicePrice + convenienceFee;
+            
+            document.getElementById('price-service').textContent = `Rs ${servicePrice}`;
+            document.getElementById('price-total').textContent = `Rs ${total}`;
+            document.getElementById('summary-price').innerHTML = `
+                <p class="mb-1"><strong>Rs ${total}</strong></p>
+                <p class="text-muted small mb-0">Includes all taxes and fees</p>
+            `;
+            
+            // Enable/disable confirm button based on terms agreement
+            document.getElementById('terms-agreement').addEventListener('change', function() {
+                document.getElementById('confirm-btn').disabled = !this.checked;
+            });
+        }
+
+        // Confirm booking - FIXED VERSION
+        async function confirmBooking() {
+            bookingData.address = document.getElementById('booking-address').value;
+            bookingData.instructions = document.getElementById('special-instructions').value;
+            
+            if (!bookingData.address.trim()) {
+                alert('Please enter the service address');
+                return;
+            }
+            
+            try {
+                // FIX: Send date and time separately
+                const bookingPayload = {
+                    service_id: bookingData.service.id,
+                    booking_date: bookingData.date,  // Send as YYYY-MM-DD
+                    booking_time: bookingData.time,  // Send as HH:MM
+                    address: bookingData.address,
+                    special_instructions: bookingData.instructions,
+                    professional_id: bookingData.professional ? bookingData.professional.id : null
+                };
+                
+                console.log('Sending booking data:', bookingPayload);
+                
+                const response = await fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(bookingPayload)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Show success modal
+                    document.getElementById('success-message').textContent = 
+                        `Your ${bookingData.service.name} service has been booked for ${bookingData.date} at ${bookingData.time}. ` +
+                        `Booking ID: ${result.bookingId}`;
+                    
+                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+                    
+                    // Reset form
+                    resetBookingForm();
+                } else {
+                    console.error('Booking failed:', result);
+                    alert('Booking failed: ' + (result.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Booking error:', error);
+                alert('Network error. Please try again.');
+            }
+        }
+
+        function resetBookingForm() {
+            bookingData = {
+                service: null,
+                date: null,
+                time: null,
+                professional: null,
+                address: '',
+                instructions: ''
+            };
+            
+            goToStep(1);
+            document.querySelectorAll('.service-card, .time-slot, .professional-card').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            document.getElementById('booking-date').value = '';
+            document.getElementById('booking-address').value = '';
+            document.getElementById('special-instructions').value = '';
+            document.getElementById('terms-agreement').checked = false;
+            
+            ['next-step1', 'next-step2', 'next-step3', 'confirm-btn'].forEach(id => {
+                document.getElementById(id).disabled = true;
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadServices();
+            
+            // Set minimum date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('booking-date').min = tomorrow.toISOString().split('T')[0];
+            
+            // Initialize terms agreement checkbox listener
+            document.getElementById('terms-agreement').addEventListener('change', function() {
+                document.getElementById('confirm-btn').disabled = !this.checked;
+            });
+        });
+    </script>
+</body>
+</html>

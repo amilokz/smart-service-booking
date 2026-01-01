@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking History | Smart Service Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a6df5;
+            --secondary: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .booking-container {
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-confirmed {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-in_progress {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .status-completed {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-cancelled {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .booking-card {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+        
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-primary-custom {
+            background: var(--primary);
+            border: none;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            border-radius: 10px;
+        }
+        
+        .btn-primary-custom:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(42, 109, 245, 0.3);
+        }
+        
+        .pagination .page-link {
+            color: var(--primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+            border-radius: 8px;
+        }
+        
+        .pagination .page-item.active .page-link {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stats-label {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .booking-time {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="/">
+                <i class="fas fa-tools me-2"></i>Smart Service Booking
+            </a>
+            <div class="d-flex align-items-center">
+                <a href="/dashboard" class="btn btn-outline-primary me-2">
+                    <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                </a>
+                <a href="/booking" class="btn btn-primary me-2">
+                    <i class="fas fa-plus-circle me-1"></i> New Booking
+                </a>
+                <a href="/logout" class="btn btn-light">
+                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Booking History Container -->
+    <div class="booking-container">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h1 class="mb-3">Booking History</h1>
+                    <p class="text-muted">View and manage all your service bookings in one place</p>
+                </div>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="row mb-5">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stats-card text-center">
+                        <div class="stats-number" id="total-bookings">0</div>
+                        <div class="stats-label">Total Bookings</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stats-card text-center">
+                        <div class="stats-number" id="completed-bookings">0</div>
+                        <div class="stats-label">Completed</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stats-card text-center">
+                        <div class="stats-number" id="pending-bookings">0</div>
+                        <div class="stats-label">Pending</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stats-card text-center">
+                        <div class="stats-number" id="cancelled-bookings">0</div>
+                        <div class="stats-label">Cancelled</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <button class="filter-btn active" onclick="filterBookings('all')">
+                            All Bookings
+                        </button>
+                        <button class="filter-btn" onclick="filterBookings('pending')">
+                            Pending
+                        </button>
+                        <button class="filter-btn" onclick="filterBookings('confirmed')">
+                            Confirmed
+                        </button>
+                        <button class="filter-btn" onclick="filterBookings('completed')">
+                            Completed
+                        </button>
+                        <button class="filter-btn" onclick="filterBookings('cancelled')">
+                            Cancelled
+                        </button>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <input type="text" class="form-control" id="search-bookings" 
+                                   placeholder="Search bookings..." oninput="searchBookings()"
+                                   style="max-width: 300px;">
+                        </div>
+                        <div>
+                            <select class="form-select" id="sort-bookings" onchange="loadBookings()" style="max-width: 200px;">
+                                <option value="date_desc">Newest First</option>
+                                <option value="date_asc">Oldest First</option>
+                                <option value="price_desc">Price: High to Low</option>
+                                <option value="price_asc">Price: Low to High</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bookings List -->
+            <div class="row">
+                <div class="col-12">
+                    <div id="bookings-container">
+                        <!-- Bookings will be loaded here -->
+                    </div>
+                    
+                    <!-- Loading Indicator -->
+                    <div id="loading-indicator" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-3 text-muted">Loading your bookings...</p>
+                    </div>
+                    
+                    <!-- Empty State -->
+                    <div id="empty-state" class="empty-state" style="display: none;">
+                        <i class="fas fa-calendar-times"></i>
+                        <h4>No Bookings Found</h4>
+                        <p class="text-muted mb-4">You haven't made any bookings yet.</p>
+                        <a href="/booking" class="btn btn-primary-custom">
+                            <i class="fas fa-plus-circle me-2"></i>Book Your First Service
+                        </a>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <nav id="pagination" class="mt-5" style="display: none;">
+                        <ul class="pagination justify-content-center">
+                            <!-- Pagination will be generated here -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Details Modal -->
+    <div class="modal fade" id="bookingDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Booking Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="booking-details-content">
+                    <!-- Booking details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="action-btn">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let allBookings = [];
+        let currentFilter = 'all';
+        let currentPage = 1;
+        let totalPages = 1;
+        let searchTerm = '';
+        let sortBy = 'date_desc';
+
+        // Load bookings
+        async function loadBookings() {
+            showLoading(true);
+            
+            try {
+                const response = await fetch(`/api/bookings?status=${currentFilter === 'all' ? '' : currentFilter}&page=${currentPage}&limit=10`, {
+                    credentials: 'include'
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    allBookings = data.bookings || [];
+                    displayBookings(allBookings);
+                    
+                    // Update pagination
+                    if (data.pagination) {
+                        totalPages = data.pagination.pages;
+                        updatePagination(data.pagination);
+                    }
+                    
+                    // Update stats
+                    updateStats();
+                } else {
+                    showEmptyState();
+                }
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+                // Fallback to mock data
+                allBookings = getMockBookings();
+                displayBookings(allBookings);
+                updatePagination({ total: 8, page: 1, limit: 10, pages: 1 });
+                updateStats();
+            }
+            
+            showLoading(false);
+        }
+
+        // Mock data for testing (only used if API fails)
+        function getMockBookings() {
+            return [
+                {
+                    id: 1,
+                    service_name: 'Plumbing',
+                    service_icon: 'fa-faucet',
+                    booking_date: '2024-12-30',
+                    booking_time: '10:00:00',
+                    status: 'confirmed',
+                    total_price: 2500,
+                    address: '123 Main St, Rawalpindi'
+                },
+                {
+                    id: 2,
+                    service_name: 'Cleaning',
+                    service_icon: 'fa-broom',
+                    booking_date: '2024-12-28',
+                    booking_time: '14:00:00',
+                    status: 'completed',
+                    total_price: 2000,
+                    address: '456 Park Ave, Islamabad'
+                }
+            ];
+        }
+
+        // Display bookings
+        function displayBookings(bookings) {
+            const container = document.getElementById('bookings-container');
+            
+            if (!bookings || bookings.length === 0) {
+                showEmptyState();
+                return;
+            }
+            
+            hideEmptyState();
+            
+            // Filter by search term
+            let filteredBookings = bookings;
+            if (searchTerm) {
+                filteredBookings = bookings.filter(booking => 
+                    booking.service_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (booking.address && booking.address.toLowerCase().includes(searchTerm.toLowerCase()))
+                );
+            }
+            
+            // Sort bookings
+            filteredBookings.sort((a, b) => {
+                const dateA = new Date(`${a.booking_date}T${a.booking_time || '00:00:00'}`);
+                const dateB = new Date(`${b.booking_date}T${b.booking_time || '00:00:00'}`);
+                
+                switch(sortBy) {
+                    case 'date_asc':
+                        return dateA - dateB;
+                    case 'price_desc':
+                        return (b.total_price || 0) - (a.total_price || 0);
+                    case 'price_asc':
+                        return (a.total_price || 0) - (b.total_price || 0);
+                    default: // date_desc
+                        return dateB - dateA;
+                }
+            });
+            
+            container.innerHTML = '';
+            
+            filteredBookings.forEach(booking => {
+                const bookingDate = new Date(booking.booking_date);
+                const formattedDate = bookingDate.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                // Format time if available
+                let timeDisplay = '';
+                if (booking.booking_time) {
+                    const time = booking.booking_time.substring(0, 5); // Get HH:MM
+                    timeDisplay = `<span class="booking-time">${time}</span>`;
+                }
+                
+                const statusClass = `status-${booking.status}`;
+                const statusText = booking.status.replace('_', ' ').toUpperCase();
+                
+                const bookingCard = `
+                    <div class="booking-card card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-1 d-none d-md-block text-center">
+                                    <div class="service-icon">
+                                        <i class="fas ${booking.service_icon || 'fa-wrench'}"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <h5 class="mb-2">${booking.service_name}</h5>
+                                    <p class="text-muted small mb-1">
+                                        <i class="fas fa-calendar me-1"></i> ${formattedDate}
+                                        ${timeDisplay ? ` <i class="fas fa-clock ms-2 me-1"></i>${timeDisplay}` : ''}
+                                    </p>
+                                    <p class="text-muted small mb-0">
+                                        <i class="fas fa-map-marker-alt me-1"></i> ${booking.address || 'Address not specified'}
+                                    </p>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="d-flex align-items-center h-100">
+                                        <span class="${statusClass} status-badge">${statusText}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <div class="h5 mb-0 text-primary">Rs ${booking.total_price || '0'}</div>
+                                </div>
+                                <div class="col-md-1 text-end">
+                                    <button class="btn btn-outline-primary" onclick="viewBookingDetails(${booking.id})">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += bookingCard;
+            });
+        }
+
+        // Filter bookings by status
+        function filterBookings(status) {
+            currentFilter = status;
+            currentPage = 1;
+            
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadBookings();
+        }
+
+        // Search bookings
+        function searchBookings() {
+            searchTerm = document.getElementById('search-bookings').value;
+            displayBookings(allBookings);
+        }
+
+        // Update pagination
+        function updatePagination(pagination) {
+            const paginationEl = document.getElementById('pagination');
+            const paginationList = paginationEl.querySelector('ul');
+            
+            if (totalPages <= 1) {
+                paginationEl.style.display = 'none';
+                return;
+            }
+            
+            paginationEl.style.display = 'block';
+            paginationList.innerHTML = '';
+            
+            // Previous button
+            const prevItem = document.createElement('li');
+            prevItem.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+            prevItem.innerHTML = `
+                <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            `;
+            paginationList.appendChild(prevItem);
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const pageItem = document.createElement('li');
+                pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
+                pageItem.innerHTML = `
+                    <a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a>
+                `;
+                paginationList.appendChild(pageItem);
+            }
+            
+            // Next button
+            const nextItem = document.createElement('li');
+            nextItem.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+            nextItem.innerHTML = `
+                <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            `;
+            paginationList.appendChild(nextItem);
+        }
+
+        // Change page
+        function changePage(page) {
+            if (page < 1 || page > totalPages || page === currentPage) return;
+            currentPage = page;
+            loadBookings();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Update stats
+        function updateStats() {
+            const total = allBookings.length;
+            const completed = allBookings.filter(b => b.status === 'completed').length;
+            const pending = allBookings.filter(b => b.status === 'pending').length;
+            const cancelled = allBookings.filter(b => b.status === 'cancelled').length;
+            
+            document.getElementById('total-bookings').textContent = total;
+            document.getElementById('completed-bookings').textContent = completed;
+            document.getElementById('pending-bookings').textContent = pending;
+            document.getElementById('cancelled-bookings').textContent = cancelled;
+        }
+
+        // View booking details
+        async function viewBookingDetails(bookingId) {
+            try {
+                const response = await fetch(`/api/bookings/${bookingId}`, {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const booking = await response.json();
+                    showBookingDetails(booking);
+                } else {
+                    const error = await response.json();
+                    alert('Failed to load booking details: ' + (error.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error loading booking details:', error);
+                // Show mock details for testing
+                showBookingDetails({
+                    id: bookingId,
+                    service_name: 'Plumbing Services',
+                    service_description: 'Expert plumbing services including leak repair, pipe installation, and drainage solutions',
+                    service_icon: 'fa-faucet',
+                    booking_date: '2024-12-30',
+                    booking_time: '10:00:00',
+                    status: 'confirmed',
+                    total_price: 2500,
+                    address: '123 Main St, Rawalpindi',
+                    special_instructions: 'Please call before arriving',
+                    professional_name: 'Ali Khan',
+                    professional_rating: 4.8
+                });
+            }
+        }
+
+        // Show booking details in modal
+        function showBookingDetails(booking) {
+            const bookingDate = new Date(booking.booking_date);
+            const formattedDate = bookingDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            const statusClass = `status-${booking.status}`;
+            const statusText = booking.status.replace('_', ' ').toUpperCase();
+            
+            let actionButton = '';
+            if (booking.status === 'pending' || booking.status === 'confirmed') {
+                actionButton = `<button class="btn btn-danger" onclick="cancelBooking(${booking.id})">
+                    <i class="fas fa-times me-1"></i>Cancel Booking
+                </button>`;
+            } else if (booking.status === 'completed') {
+                actionButton = `<button class="btn btn-success" onclick="addReview(${booking.id})">
+                    <i class="fas fa-star me-1"></i>Add Review
+                </button>`;
+            }
+            
+            const content = `
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h6>Service</h6>
+                        <p class="mb-0"><strong>${booking.service_name}</strong></p>
+                        ${booking.service_description ? `<p class="text-muted small">${booking.service_description}</p>` : ''}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6>Status</h6>
+                        <span class="${statusClass} status-badge">${statusText}</span>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h6>Date & Time</h6>
+                        <p class="mb-0"><strong>${formattedDate}</strong></p>
+                        <p class="text-muted small">${booking.booking_time ? booking.booking_time.substring(0, 5) : 'Time not specified'}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6>Total Amount</h6>
+                        <h4 class="text-primary">Rs ${booking.total_price || '0'}</h4>
+                        ${booking.service_fee && booking.convenience_fee ? `
+                        <div class="small text-muted">
+                            Service Fee: Rs ${booking.service_fee}<br>
+                            Convenience Fee: Rs ${booking.convenience_fee}
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <h6>Service Address</h6>
+                        <p class="mb-0">${booking.address || 'Address not specified'}</p>
+                    </div>
+                </div>
+                
+                ${booking.professional_name ? `
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <h6>Assigned Professional</h6>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 
+                                 style="width: 40px; height: 40px;">
+                                ${booking.professional_name.charAt(0)}
+                            </div>
+                            <div>
+                                <p class="mb-0"><strong>${booking.professional_name}</strong></p>
+                                ${booking.professional_rating ? `<p class="text-muted small mb-0">${booking.professional_rating} ★ Rating</p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+                
+                ${booking.special_instructions ? `
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <h6>Special Instructions</h6>
+                        <p class="mb-0">${booking.special_instructions}</p>
+                    </div>
+                </div>
+                ` : ''}
+                
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <h6>Booking ID</h6>
+                        <p class="mb-0 text-muted">${booking.id}</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('booking-details-content').innerHTML = content;
+            document.getElementById('action-btn').innerHTML = actionButton || 'View Details';
+            
+            const modal = new bootstrap.Modal(document.getElementById('bookingDetailsModal'));
+            modal.show();
+        }
+
+        // Cancel booking
+        async function cancelBooking(bookingId) {
+            if (!confirm('Are you sure you want to cancel this booking? This action cannot be undone.')) return;
+            
+            try {
+                const response = await fetch(`/api/bookings/${bookingId}/cancel`, {
+                    method: 'PUT',
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    alert('Booking cancelled successfully');
+                    loadBookings();
+                    bootstrap.Modal.getInstance(document.getElementById('bookingDetailsModal')).hide();
+                } else {
+                    const error = await response.json();
+                    alert('Failed to cancel booking: ' + (error.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error cancelling booking:', error);
+                alert('Network error. Please try again.');
+            }
+        }
+
+        // Add review (placeholder)
+        function addReview(bookingId) {
+            alert('Review feature coming soon! For now, you can contact customer support for feedback.');
+        }
+
+        // UI helpers
+        function showLoading(show) {
+            document.getElementById('loading-indicator').style.display = show ? 'block' : 'none';
+        }
+
+        function showEmptyState() {
+            document.getElementById('empty-state').style.display = 'block';
+            document.getElementById('bookings-container').innerHTML = '';
+            document.getElementById('pagination').style.display = 'none';
+        }
+
+        function hideEmptyState() {
+            document.getElementById('empty-state').style.display = 'none';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBookings();
+            
+            // Update sort when changed
+            document.getElementById('sort-bookings').addEventListener('change', function() {
+                sortBy = this.value;
+                displayBookings(allBookings);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Smart Service Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a6df5;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .profile-container {
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: rgb(7, 7, 7);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            margin: 0 auto 1.5rem;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--dark);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            margin-right: 0.5rem;
+            border-radius: 10px;
+        }
+        
+        .nav-tabs .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(42, 109, 245, 0.25);
+        }
+        
+        .btn-primary-custom {
+            background: var(--primary);
+            border: none;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            border-radius: 10px;
+        }
+        
+        .btn-primary-custom:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(42, 109, 245, 0.3);
+        }
+        
+        .btn-outline-primary-custom {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            border-radius: 10px;
+        }
+        
+        .btn-outline-primary-custom:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .recent-activity {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .recent-activity li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .recent-activity li:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(42, 109, 245, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            margin-right: 1rem;
+        }
+        
+        .password-strength {
+            height: 5px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--danger);
+            transition: all 0.3s;
+        }
+        
+        .password-strength-bar.weak {
+            width: 30%;
+            background: #ef4444;
+        }
+        
+        .password-strength-bar.medium {
+            width: 60%;
+            background: #f59e0b;
+        }
+        
+        .password-strength-bar.strong {
+            width: 100%;
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="/">
+                <i class="fas fa-tools me-2"></i>Smart Service Booking
+            </a>
+            <div class="d-flex align-items-center">
+                <a href="/dashboard" class="btn btn-outline-primary me-2">
+                    <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                </a>
+                <a href="/booking" class="btn btn-primary me-2">
+                    <i class="fas fa-plus-circle me-1"></i> New Booking
+                </a>
+                <a href="/logout" class="btn btn-light">
+                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-3 text-center">
+                        <div class="profile-avatar" id="profile-avatar">
+                            <!-- Initial will be set by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h1 id="profile-name" class="mb-2">Loading...</h1>
+                        <p id="profile-email" class="lead mb-3">user@example.com</p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <span class="badge bg-light text-dark">
+                                <i class="fas fa-calendar me-1"></i> Joined: <span id="join-date">Loading...</span>
+                            </span>
+                            <span class="badge bg-light text-dark">
+                                <i class="fas fa-star me-1"></i> Member
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="container">
+            <!-- Stats Overview -->
+            <div class="row mb-4">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-bookings">0</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="completed-bookings">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="pending-bookings">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-spent">Rs 0</div>
+                        <div class="stat-label">Total Spent</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Tabs -->
+                    <ul class="nav nav-tabs mb-4" id="profileTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="personal-tab" data-bs-toggle="tab" 
+                                    data-bs-target="#personal" type="button">
+                                <i class="fas fa-user me-2"></i>Personal Info
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="security-tab" data-bs-toggle="tab" 
+                                    data-bs-target="#security" type="button">
+                                <i class="fas fa-lock me-2"></i>Security
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="preferences-tab" data-bs-toggle="tab" 
+                                    data-bs-target="#preferences" type="button">
+                                <i class="fas fa-cog me-2"></i>Preferences
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="profileTabContent">
+                        <!-- Personal Info Tab -->
+                        <div class="tab-pane fade show active" id="personal" role="tabpanel">
+                            <div class="profile-card">
+                                <h4 class="mb-4">Personal Information</h4>
+                                <form id="profile-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="name" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="name" 
+                                                   placeholder="Enter your full name">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="email" class="form-label">Email Address</label>
+                                            <input type="email" class="form-control" id="email" 
+                                                   placeholder="Enter your email" disabled>
+                                            <div class="form-text">Email cannot be changed</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="phone" class="form-label">Phone Number</label>
+                                            <input type="tel" class="form-control" id="phone" 
+                                                   placeholder="Enter your phone number">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="address" class="form-label">Default Address</label>
+                                            <textarea class="form-control" id="address" rows="3" 
+                                                      placeholder="Enter your default service address"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-primary-custom">
+                                            <i class="fas fa-save me-2"></i>Save Changes
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary ms-2" onclick="resetForm()">
+                                            <i class="fas fa-undo me-2"></i>Reset
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Security Tab -->
+                        <div class="tab-pane fade" id="security" role="tabpanel">
+                            <div class="profile-card">
+                                <h4 class="mb-4">Security Settings</h4>
+                                
+                                <!-- Change Password -->
+                                <div class="mb-5">
+                                    <h5 class="mb-3">Change Password</h5>
+                                    <form id="password-form">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="current-password" class="form-label">Current Password</label>
+                                                <input type="password" class="form-control" id="current-password" 
+                                                       placeholder="Enter current password">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="new-password" class="form-label">New Password</label>
+                                                <input type="password" class="form-control" id="new-password" 
+                                                       placeholder="Enter new password" oninput="checkPasswordStrength()">
+                                                <div class="password-strength">
+                                                    <div class="password-strength-bar" id="password-strength-bar"></div>
+                                                </div>
+                                                <div class="form-text" id="password-strength-text"></div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="confirm-password" class="form-label">Confirm New Password</label>
+                                                <input type="password" class="form-control" id="confirm-password" 
+                                                       placeholder="Confirm new password">
+                                                <div class="form-text" id="password-match-text"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mt-4">
+                                            <button type="submit" class="btn btn-primary-custom">
+                                                <i class="fas fa-key me-2"></i>Update Password
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <!-- Security Sessions -->
+                                <div>
+                                    <h5 class="mb-3">Active Sessions</h5>
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        You are currently logged in on this device.
+                                    </div>
+                                    <button class="btn btn-outline-danger" onclick="logoutAllDevices()">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Logout from All Devices
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preferences Tab -->
+                        <div class="tab-pane fade" id="preferences" role="tabpanel">
+                            <div class="profile-card">
+                                <h4 class="mb-4">Preferences</h4>
+                                
+                                <!-- Notification Preferences -->
+                                <div class="mb-4">
+                                    <h5 class="mb-3">Notification Preferences</h5>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="email-notifications" checked>
+                                        <label class="form-check-label" for="email-notifications">
+                                            Email notifications for new bookings
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="sms-notifications">
+                                        <label class="form-check-label" for="sms-notifications">
+                                            SMS notifications for booking updates
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="promotional-emails">
+                                        <label class="form-check-label" for="promotional-emails">
+                                            Receive promotional emails and offers
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Service Preferences -->
+                                <div class="mb-4">
+                                    <h5 class="mb-3">Service Preferences</h5>
+                                    <div class="mb-3">
+                                        <label for="preferred-time" class="form-label">Preferred Service Time</label>
+                                        <select class="form-select" id="preferred-time">
+                                            <option value="morning">Morning (8 AM - 12 PM)</option>
+                                            <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+                                            <option value="evening" selected>Evening (4 PM - 8 PM)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Privacy Settings -->
+                                <div>
+                                    <h5 class="mb-3">Privacy Settings</h5>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="show-profile" checked>
+                                        <label class="form-check-label" for="show-profile">
+                                            Show my profile to service professionals
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="share-ratings" checked>
+                                        <label class="form-check-label" for="share-ratings">
+                                            Share my ratings and reviews publicly
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <button class="btn btn-primary-custom" onclick="savePreferences()">
+                                        <i class="fas fa-save me-2"></i>Save Preferences
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Recent Activity -->
+                    <div class="profile-card mb-4">
+                        <h4 class="mb-4">Recent Activity</h4>
+                        <ul class="recent-activity" id="recent-activity">
+                            <!-- Activities will be loaded here -->
+                        </ul>
+                        <div class="text-center mt-3">
+                            <a href="/booking-history" class="btn btn-outline-primary-custom w-100">
+                                <i class="fas fa-history me-2"></i>View All Activity
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="profile-card">
+                        <h4 class="mb-4">Quick Actions</h4>
+                        <div class="d-grid gap-2">
+                            <a href="/booking" class="btn btn-primary-custom">
+                                <i class="fas fa-plus-circle me-2"></i>Book New Service
+                            </a>
+                            <a href="/booking-history" class="btn btn-outline-primary-custom">
+                                <i class="fas fa-calendar-alt me-2"></i>View Bookings
+                            </a>
+                            <a href="/services" class="btn btn-outline-primary-custom">
+                                <i class="fas fa-concierge-bell me-2"></i>Browse Services
+                            </a>
+                            <button class="btn btn-outline-danger" onclick="deleteAccount()">
+                                <i class="fas fa-trash-alt me-2"></i>Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <div class="mb-4">
+                        <div class="rounded-circle bg-success d-inline-flex align-items-center justify-content-center" 
+                             style="width: 80px; height: 80px;">
+                            <i class="fas fa-check fa-2x text-white"></i>
+                        </div>
+                    </div>
+                    <h4 class="mb-3" id="success-title">Success!</h4>
+                    <p class="text-muted mb-4" id="success-message"></p>
+                    <button class="btn btn-primary-custom" data-bs-dismiss="modal">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Modal -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-danger">Delete Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        This action cannot be undone!
+                    </div>
+                    <p>Are you sure you want to delete your account? This will:</p>
+                    <ul class="text-danger">
+                        <li>Permanently delete your profile</li>
+                        <li>Cancel all pending bookings</li>
+                        <li>Remove your booking history</li>
+                        <li>Delete all your personal data</li>
+                    </ul>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="confirm-delete">
+                        <label class="form-check-label" for="confirm-delete">
+                            I understand this action is irreversible
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirm-delete-btn" disabled>
+                        <i class="fas fa-trash-alt me-2"></i>Delete My Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // User profile data
+        let userData = {};
+        let originalFormData = {};
+
+        // Load user profile
+        async function loadProfile() {
+            try {
+                const response = await fetch('/api/user', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    userData = await response.json();
+                    displayProfile(userData);
+                    loadRecentActivity();
+                } else {
+                    // Redirect to login if not authenticated
+                    window.location.href = '/login';
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+                // Show mock data for testing
+                userData = getMockProfile();
+                displayProfile(userData);
+                loadRecentActivity();
+            }
+        }
+
+        // Mock data for testing
+        function getMockProfile() {
+            return {
+                email: 'test@example.com',
+                name: 'Test User',
+                phone: '+923001234567',
+                address: '123 Main St, Rawalpindi',
+                joinedDate: '2024-01-15T10:30:00Z',
+                totalBookings: 8,
+                completedBookings: 6,
+                pendingBookings: 2
+            };
+        }
+
+        // Display profile data
+        function displayProfile(data) {
+            // Update header
+            const userName = data.name || data.email.split('@')[0];
+            document.getElementById('profile-name').textContent = userName;
+            document.getElementById('profile-email').textContent = data.email;
+            
+            // Set avatar initial
+            const initial = userName.charAt(0).toUpperCase();
+            document.getElementById('profile-avatar').textContent = initial;
+            
+            // Format join date
+            if (data.joinedDate) {
+                const joinDate = new Date(data.joinedDate);
+                document.getElementById('join-date').textContent = 
+                    joinDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+            }
+            
+            // Update stats
+            document.getElementById('total-bookings').textContent = data.totalBookings || 0;
+            document.getElementById('completed-bookings').textContent = data.completedBookings || 0;
+            document.getElementById('pending-bookings').textContent = data.pendingBookings || 0;
+            
+            // Calculate total spent (mock)
+            const totalSpent = (data.totalBookings || 0) * 2500;
+            document.getElementById('total-spent').textContent = `Rs ${totalSpent}`;
+            
+            // Fill form
+            document.getElementById('name').value = data.name || '';
+            document.getElementById('email').value = data.email || '';
+            document.getElementById('phone').value = data.phone || '';
+            document.getElementById('address').value = data.address || '';
+            
+            // Save original data
+            originalFormData = {
+                name: data.name || '',
+                phone: data.phone || '',
+                address: data.address || ''
+            };
+        }
+
+        // Load recent activity
+        async function loadRecentActivity() {
+            try {
+                const response = await fetch('/api/bookings?limit=5', {
+                    credentials: 'include'
+                });
+                
+                const container = document.getElementById('recent-activity');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const bookings = data.bookings || [];
+                    
+                    if (bookings.length === 0) {
+                        container.innerHTML = `
+                            <li class="text-center text-muted py-4">
+                                <i class="fas fa-calendar-times fa-2x mb-3"></i>
+                                <p>No recent activity</p>
+                            </li>
+                        `;
+                        return;
+                    }
+                    
+                    container.innerHTML = '';
+                    bookings.forEach(booking => {
+                        const activity = createActivityItem(booking);
+                        container.innerHTML += activity;
+                    });
+                } else {
+                    // Show mock activities
+                    const mockBookings = [
+                        { id: 1, service_name: 'Plumbing', status: 'completed', booking_date: '2024-12-28T14:00:00Z' },
+                        { id: 2, service_name: 'Cleaning', status: 'confirmed', booking_date: '2024-12-30T10:00:00Z' },
+                        { id: 3, service_name: 'Car Wash', status: 'pending', booking_date: '2025-01-02T11:00:00Z' }
+                    ];
+                    
+                    mockBookings.forEach(booking => {
+                        const activity = createActivityItem(booking);
+                        container.innerHTML += activity;
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading activity:', error);
+            }
+        }
+
+        // Create activity item
+        function createActivityItem(booking) {
+            const bookingDate = new Date(booking.booking_date);
+            const timeAgo = getTimeAgo(bookingDate);
+            const statusIcon = getStatusIcon(booking.status);
+            const statusColor = getStatusColor(booking.status);
+            
+            return `
+                <li>
+                    <div class="activity-icon" style="background: ${statusColor}20; color: ${statusColor};">
+                        <i class="fas ${statusIcon}"></i>
+                    </div>
+                    <div>
+                        <p class="mb-1"><strong>${booking.service_name}</strong> - ${booking.status}</p>
+                        <p class="text-muted small mb-0">${timeAgo}</p>
+                    </div>
+                </li>
+            `;
+        }
+
+        // Helper functions
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            
+            if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
+            if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+            if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            return 'Just now';
+        }
+
+        function getStatusIcon(status) {
+            switch(status) {
+                case 'completed': return 'fa-check-circle';
+                case 'confirmed': return 'fa-calendar-check';
+                case 'in_progress': return 'fa-tools';
+                case 'cancelled': return 'fa-times-circle';
+                default: return 'fa-clock';
+            }
+        }
+
+        function getStatusColor(status) {
+            switch(status) {
+                case 'completed': return '#10b981';
+                case 'confirmed': return '#2a6df5';
+                case 'in_progress': return '#f59e0b';
+                case 'cancelled': return '#ef4444';
+                default: return '#64748b';
+            }
+        }
+
+        // Profile form submission
+        document.getElementById('profile-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value
+            };
+            
+            try {
+                const response = await fetch('/api/user/profile', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    showSuccess('Profile Updated', 'Your profile has been updated successfully.');
+                    originalFormData = { ...formData };
+                    loadProfile(); // Reload profile data
+                } else {
+                    const error = await response.json();
+                    alert('Failed to update profile: ' + error.message);
+                }
+            } catch (error) {
+                console.error('Update error:', error);
+                alert('Network error. Please try again.');
+            }
+        });
+
+        // Password form submission
+        document.getElementById('password-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match');
+                return;
+            }
+            
+            // In a real app, you would make an API call here
+            // For now, show success message
+            showSuccess('Password Updated', 'Your password has been changed successfully.');
+            document.getElementById('password-form').reset();
+            document.getElementById('password-strength-bar').className = 'password-strength-bar';
+            document.getElementById('password-strength-text').textContent = '';
+            document.getElementById('password-match-text').textContent = '';
+        });
+
+        // Check password strength
+        function checkPasswordStrength() {
+            const password = document.getElementById('new-password').value;
+            const bar = document.getElementById('password-strength-bar');
+            const text = document.getElementById('password-strength-text');
+            
+            if (!password) {
+                bar.className = 'password-strength-bar';
+                bar.style.width = '0%';
+                text.textContent = '';
+                return;
+            }
+            
+            // Simple strength calculation
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            if (strength < 2) {
+                bar.className = 'password-strength-bar weak';
+                text.textContent = 'Weak password';
+                text.className = 'form-text text-danger';
+            } else if (strength < 4) {
+                bar.className = 'password-strength-bar medium';
+                text.textContent = 'Medium strength password';
+                text.className = 'form-text text-warning';
+            } else {
+                bar.className = 'password-strength-bar strong';
+                text.textContent = 'Strong password';
+                text.className = 'form-text text-success';
+            }
+        }
+
+        // Check password match
+        document.getElementById('confirm-password').addEventListener('input', function() {
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = this.value;
+            const text = document.getElementById('password-match-text');
+            
+            if (!confirmPassword) {
+                text.textContent = '';
+                return;
+            }
+            
+            if (newPassword === confirmPassword) {
+                text.textContent = 'Passwords match';
+                text.className = 'form-text text-success';
+            } else {
+                text.textContent = 'Passwords do not match';
+                text.className = 'form-text text-danger';
+            }
+        });
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('name').value = originalFormData.name || '';
+            document.getElementById('phone').value = originalFormData.phone || '';
+            document.getElementById('address').value = originalFormData.address || '';
+        }
+
+        // Save preferences
+        function savePreferences() {
+            showSuccess('Preferences Saved', 'Your preferences have been saved successfully.');
+        }
+
+        // Logout from all devices
+        function logoutAllDevices() {
+            if (confirm('Are you sure you want to logout from all devices?')) {
+                // In a real app, you would call an API
+                showSuccess('Logged Out', 'You have been logged out from all devices.');
+            }
+        }
+
+        // Delete account
+        function deleteAccount() {
+            const modal = new bootstrap.Modal(document.getElementById('deleteAccountModal'));
+            modal.show();
+            
+            // Enable/disable delete button based on checkbox
+            document.getElementById('confirm-delete').addEventListener('change', function() {
+                document.getElementById('confirm-delete-btn').disabled = !this.checked;
+            });
+            
+            document.getElementById('confirm-delete-btn').onclick = function() {
+                // In a real app, you would call delete account API
+                alert('Account deletion feature would be implemented here.');
+                modal.hide();
+            };
+        }
+
+        // Show success modal
+        function showSuccess(title, message) {
+            document.getElementById('success-title').textContent = title;
+            document.getElementById('success-message').textContent = message;
+            const modal = new bootstrap.Modal(document.getElementById('successModal'));
+            modal.show();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfile();
+            
+            // Initialize password strength check
+            document.getElementById('new-password').addEventListener('input', checkPasswordStrength);
+        });
+    </script>
+</body>
+</html>

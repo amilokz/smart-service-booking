@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Our Services | SmartServe - Professional Service Booking</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Browse and book premium professional services on SmartServe. Plumbing, electrical, cleaning, car wash, HVAC, and more with guaranteed quality.">
+    <meta name="keywords" content="professional services, home services, booking platform, plumbing, electrical, cleaning, car wash, smartserve, service booking">
+    <meta name="author" content="SmartServe">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3034/3034848.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3034/3034848.png">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: rgba(67, 97, 238, 0.1);
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #4cc9f0;
+            --success: #38b000;
+            --warning: #f8961e;
+            --danger: #ef476f;
+            --dark: #0a0a0f;
+            --darker: #05050a;
+            --light: #f8f9fa;
+            --light-gray: #f5f7fa;
+            --gray: #8a94a6;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --border-radius-xl: 32px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.12);
+            --shadow-hover: 0 30px 60px rgba(67, 97, 238, 0.15);
+            --gradient-primary: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
+            --gradient-accent: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+            --gradient-dark: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .section-padding {
+            padding: 6rem 0;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 1.2rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .navbar.scrolled {
+            padding: 0.8rem 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .navbar-brand {
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--primary) !important;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            color: var(--dark) !important;
+            padding: 0.75rem 1.25rem !important;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 1.25rem;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: calc(100% - 2.5rem);
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary) !important;
+        }
+        
+        /* Hero Section */
+        .services-hero {
+            background: var(--gradient-dark);
+            color: white;
+            padding: 10rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(67, 97, 238, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(76, 201, 240, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite alternate;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(30px, 30px) rotate(1deg);
+            }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatParticle 15s infinite linear;
+        }
+        
+        @keyframes floatParticle {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(100px, 100px);
+            }
+        }
+        
+        /* Categories Section */
+        .categories-section {
+            padding: 2rem 0;
+            background: white;
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .categories-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scrollbar-width: none;
+        }
+        
+        .categories-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-card {
+            flex-shrink: 0;
+            background: var(--light);
+            border: 2px solid transparent;
+            border-radius: var(--border-radius-lg);
+            padding: 1.25rem 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .category-card:hover::before,
+        .category-card.active::before {
+            left: 0;
+        }
+        
+        .category-card:hover,
+        .category-card.active {
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .category-icon {
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .category-card:hover .category-icon,
+        .category-card.active .category-icon {
+            transform: scale(1.2);
+        }
+        
+        /* Services Grid */
+        .services-grid-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+        
+        .search-filter-bar {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .search-wrapper {
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3.5rem;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: var(--transition);
+            background: var(--light);
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.2rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid transparent;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 0;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-light);
+        }
+        
+        .service-card:hover::before {
+            opacity: 0.03;
+        }
+        
+        .service-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .service-image {
+            height: 220px;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, transparent 100%);
+        }
+        
+        .service-icon {
+            font-size: 5rem;
+            color: white;
+            z-index: 1;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+        }
+        
+        .service-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .service-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .service-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .feature-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .service-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--light-gray);
+        }
+        
+        .service-price {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+        }
+        
+        .service-price small {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .service-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .duration-badge {
+            background: var(--light);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .btn-book {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            font-size: 1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-book::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-accent);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn-book:hover::before {
+            left: 0;
+        }
+        
+        .btn-book:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-book:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: white;
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+        }
+        
+        .empty-icon {
+            font-size: 5rem;
+            color: var(--light-gray);
+            margin-bottom: 2rem;
+            opacity: 0.5;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 6rem 0;
+            background: var(--gradient-dark);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .feature-item:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature-icon-wrapper {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .feature-item:hover .feature-icon-wrapper {
+            background: var(--gradient-primary);
+            color: white;
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, #4361ee15 0%, #7209b715 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 5rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(67, 97, 238, 0.1) 0%, transparent 50%);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-brand {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            background: var(--gradient-primary);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .services-hero {
+                padding: 8rem 0 4rem;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .section-padding {
+                padding: 4rem 0;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-card {
+                padding: 1rem 1.5rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .cta-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .category-card {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .category-icon {
+                font-size: 1.2rem;
+            }
+            
+            .service-card {
+                margin: 0 1rem;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="/" aria-label="SmartServe Home">
+                <div class="logo-icon">
+                    <i class="fas fa-concierge-bell"></i>
+                </div>
+                SmartServe
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/testimonials">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
+                <div class="d-flex gap-3 ms-lg-3 mt-3 mt-lg-0" id="authButtons">
+                    <a href="/login" class="btn btn-outline-primary">Login</a>
+                    <a href="/register" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="services-hero">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="hero-title">
+                    Premium Services, <span class="text-gradient">Elevated Experience</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Discover our curated collection of professional services. Each provider is verified, 
+                    each service is guaranteed, and every experience is designed to exceed expectations.
+                </p>
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <a href="#services" class="btn btn-primary btn-lg px-5 py-3">
+                        <i class="fas fa-search me-2"></i>Explore Services
+                    </a>
+                    <a href="/booking" class="btn btn-outline-light btn-lg px-5 py-3">
+                        <i class="fas fa-calendar-alt me-2"></i>Book Now
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Happy Customers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Verified Pros</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <div class="categories-container" id="categoriesContainer">
+                <!-- Categories will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services-grid-section" id="services">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Our Premium Services</h2>
+                <p class="text-muted fs-5">Choose from our wide range of professional services</p>
+            </div>
+            
+            <!-- Search and Filter -->
+            <div class="search-filter-bar" data-aos="fade-up" data-aos-delay="100">
+                <div class="row g-3">
+                    <div class="col-lg-8">
+                        <div class="search-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="search-input" id="searchInput" 
+                                   placeholder="What service are you looking for today?">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex gap-3">
+                            <select class="form-select" id="sortSelect">
+                                <option value="name">Sort by Name</option>
+                                <option value="price_low">Price: Low to High</option>
+                                <option value="price_high">Price: High to Low</option>
+                                <option value="popular">Most Popular</option>
+                            </select>
+                            <button class="btn btn-outline-primary" id="clearFiltersBtn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Services Grid -->
+            <div class="services-grid" id="servicesGrid">
+                <!-- Services will be loaded here -->
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="mb-3">No Services Found</h3>
+                <p class="text-muted mb-4">We couldn't find any services matching your search criteria.</p>
+                <button class="btn btn-primary" onclick="clearFilters()">
+                    <i class="fas fa-times me-2"></i>
+                    Clear All Filters
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="text-white mb-3">Why Choose SmartServe?</h2>
+                <p class="text-light opacity-75 fs-5">We're committed to excellence in every aspect of service delivery</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Verified Excellence</h3>
+                    <p class="text-light opacity-75">Every professional undergoes rigorous background checks, license verification, and skill assessment.</p>
+                </div>
+                
+                <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">Punctual Perfection</h3>
+                    <p class="text-light opacity-75">We value your time. Real-time tracking and guaranteed arrival times ensure perfect scheduling.</p>
+                </div>
+                
+                <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3 class="feature-title">Transparent Pricing</h3>
+                    <p class="text-light opacity-75">No hidden costs. Get detailed quotes upfront with itemized pricing and flexible payment options.</p>
+                </div>
+                
+                <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon-wrapper">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3 class="feature-title">Quality Guarantee</h3>
+                    <p class="text-light opacity-75">100% satisfaction guarantee with complimentary follow-ups and 24/7 customer support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2 class="cta-title">Ready to Experience Excellence?</h2>
+                <p class="cta-subtitle">
+                    Join thousands of satisfied customers who trust SmartServe for their service needs. 
+                    Book your first service today and experience the difference.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center gap-4">
+                    <a href="/booking" class="btn btn-primary btn-lg px-5 py-3">
+                        <i class="fas fa-calendar-plus me-2"></i>Book Your Service
+                    </a>
+                    <a href="/how-it-works" class="btn btn-outline-primary btn-lg px-5 py-3">
+                        <i class="fas fa-play-circle me-2"></i>See How It Works
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <div class="logo-icon">
+                            <i class="fas fa-concierge-bell"></i>
+                        </div>
+                        SmartServe
+                    </div>
+                    <p class="footer-description">
+                        Your trusted partner for premium professional services. 
+                        Quality, reliability, and excellence in every service we provide.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="/services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="/how-it-works"><i class="fas fa-chevron-right"></i> How It Works</a></li>
+                        <li><a href="/testimonials"><i class="fas fa-chevron-right"></i> Customer Reviews</a></li>
+                        <li><a href="/about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Popular Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="/services?category=plumbing"><i class="fas fa-faucet"></i> Plumbing Services</a></li>
+                        <li><a href="/services?category=electrical"><i class="fas fa-bolt"></i> Electrical Work</a></li>
+                        <li><a href="/services?category=cleaning"><i class="fas fa-broom"></i> Professional Cleaning</a></li>
+                        <li><a href="/services?category=automotive"><i class="fas fa-car"></i> Car Detailing</a></li>
+                        <li><a href="/services?category=hvac"><i class="fas fa-wind"></i> HVAC Services</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-title">Contact Info</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="mailto:amilokz1@gmail.com">
+                                <i class="fas fa-envelope"></i>
+                                amilokz1@gmail.com
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+923238559822">
+                                <i class="fas fa-phone"></i>
+                                +92 323 8559822
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://maps.google.com" target="_blank">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Rawalpindi, Pakistan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/contact">
+                                <i class="fas fa-headset"></i>
+                                24/7 Customer Support
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> SmartServe. All rights reserved.</p>
+                <p class="mt-2">
+                    <a href="/privacy" class="text-white-50 me-3">Privacy Policy</a>
+                    <a href="/terms" class="text-white-50">Terms of Service</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Service Details Modal -->
+    <div class="modal fade" id="serviceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-primary text-white">
+                    <h5 class="modal-title" id="modalServiceTitle">Service Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalServiceBody">
+                    <!-- Service details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="modalBookBtn">
+                        <i class="fas fa-calendar-plus me-2"></i>Book This Service
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Application State
+        const AppState = {
+            services: [],
+            categories: [],
+            filteredServices: [],
+            selectedCategory: 'all',
+            searchQuery: '',
+            sortBy: 'name',
+            isAuthenticated: false,
+            user: null,
+            loading: true
+        };
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', async function() {
+            initializeParticles();
+            await checkAuthStatus();
+            await loadServices();
+            initializeEventListeners();
+            updateCurrentYear();
+            initializeNavbarScroll();
+        });
+
+        // Initialize particles animation
+        function initializeParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${x}%`;
+                particle.style.top = `${y}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.opacity = Math.random() * 0.2 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize navbar scroll effect
+        function initializeNavbarScroll() {
+            const navbar = document.getElementById('mainNavbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // Check authentication status
+        async function checkAuthStatus() {
+            try {
+                const response = await fetch('/api/user', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    AppState.user = await response.json();
+                    AppState.isAuthenticated = true;
+                    updateAuthUI();
+                }
+            } catch (error) {
+                console.log('User not authenticated');
+            }
+        }
+
+        // Update auth UI
+        function updateAuthUI() {
+            const authButtons = document.getElementById('authButtons');
+            if (authButtons && AppState.isAuthenticated) {
+                const userName = AppState.user.name || AppState.user.email.split('@')[0];
+                authButtons.innerHTML = `
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle d-flex align-items-center" type="button" 
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="avatar me-2">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            ${userName}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/dashboard"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+                            <li><a class="dropdown-item" href="/profile"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="/booking-history"><i class="fas fa-history me-2"></i>Booking History</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        // Load services
+        async function loadServices() {
+            AppState.loading = true;
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/services');
+                
+                if (response.ok) {
+                    AppState.services = await response.json();
+                    initializeCategories();
+                    filterAndRenderServices();
+                } else {
+                    throw new Error('Failed to load services');
+                }
+            } catch (error) {
+                console.error('Error loading services:', error);
+                showToast('Failed to load services. Please refresh the page.', 'error');
+                loadMockServices();
+            } finally {
+                AppState.loading = false;
+                hideLoading();
+            }
+        }
+
+        // Show loading state
+        function showLoading() {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3 text-muted">Loading premium services...</p>
+                </div>
+            `;
+        }
+
+        function hideLoading() {
+            // Handled in filterAndRenderServices
+        }
+
+        // Load mock services as fallback
+        function loadMockServices() {
+            AppState.services = [
+                {
+                    id: 1,
+                    name: 'Plumbing Services',
+                    description: 'Expert plumbing solutions for leaks, installations, and repairs. Our certified plumbers ensure quality work with guaranteed satisfaction.',
+                    category: 'plumbing',
+                    price: 2500,
+                    duration_minutes: 120,
+                    icon: 'fa-faucet',
+                    is_active: true,
+                    features: ['Leak Detection & Repair', 'Pipe Installation', 'Drain Cleaning', 'Emergency Services', 'Free Estimates']
+                },
+                {
+                    id: 2,
+                    name: 'Electrical Services',
+                    description: 'Certified electricians for wiring, repairs, and installations. Safety guaranteed with proper certifications and insurance.',
+                    category: 'electrical',
+                    price: 3000,
+                    duration_minutes: 120,
+                    icon: 'fa-bolt',
+                    is_active: true,
+                    features: ['Wiring & Installations', 'Electrical Repairs', 'Safety Inspections', 'Lighting Solutions', 'Panel Upgrades']
+                },
+                {
+                    id: 3,
+                    name: 'Premium Cleaning',
+                    description: 'Professional residential and commercial cleaning using eco-friendly products and advanced equipment.',
+                    category: 'cleaning',
+                    price: 2000,
+                    duration_minutes: 180,
+                    icon: 'fa-broom',
+                    is_active: true,
+                    features: ['Deep Cleaning', 'Office Cleaning', 'Eco-friendly Products', 'Regular Maintenance', 'Carpet Cleaning']
+                },
+                {
+                    id: 4,
+                    name: 'Car Detailing',
+                    description: 'Complete interior and exterior car cleaning, polishing, and detailing with premium products.',
+                    category: 'automotive',
+                    price: 1500,
+                    duration_minutes: 90,
+                    icon: 'fa-car',
+                    is_active: true,
+                    features: ['Exterior Wash', 'Interior Cleaning', 'Polishing', 'Vacuuming', 'Odor Removal']
+                },
+                {
+                    id: 5,
+                    name: 'HVAC Services',
+                    description: 'Installation, maintenance, and repair of heating, ventilation, and AC systems by certified technicians.',
+                    category: 'hvac',
+                    price: 4000,
+                    duration_minutes: 180,
+                    icon: 'fa-wind',
+                    is_active: true,
+                    features: ['AC Installation', 'Maintenance', 'Repair Services', 'Duct Cleaning', 'Energy Audit']
+                },
+                {
+                    id: 6,
+                    name: 'Pest Control',
+                    description: 'Safe and effective pest elimination for residential and commercial properties using environmentally friendly methods.',
+                    category: 'pest-control',
+                    price: 3500,
+                    duration_minutes: 120,
+                    icon: 'fa-bug',
+                    is_active: true,
+                    features: ['Pest Inspection', 'Safe Treatment', 'Prevention Tips', 'Follow-up Service', 'Warranty']
+                }
+            ];
+            
+            initializeCategories();
+            filterAndRenderServices();
+        }
+
+        // Initialize categories
+        function initializeCategories() {
+            const categories = new Set(['all']);
+            AppState.services.forEach(service => {
+                if (service.category && service.is_active) {
+                    categories.add(service.category);
+                }
+            });
+            AppState.categories = Array.from(categories);
+            renderCategories();
+        }
+
+        // Render categories
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
+            
+            AppState.categories.forEach(category => {
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                if (category === 'all') card.classList.add('active');
+                card.dataset.category = category;
+                
+                const displayName = category === 'all' ? 'All Services' : 
+                                  category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ');
+                
+                card.innerHTML = `
+                    <i class="fas ${getCategoryIcon(category)} category-icon"></i>
+                    <span>${displayName}</span>
+                `;
+                
+                card.addEventListener('click', () => selectCategory(category));
+                container.appendChild(card);
+            });
+        }
+
+        // Get icon for category
+        function getCategoryIcon(category) {
+            const icons = {
+                'all': 'th-large',
+                'plumbing': 'faucet',
+                'electrical': 'bolt',
+                'cleaning': 'broom',
+                'automotive': 'car',
+                'hvac': 'wind',
+                'pest-control': 'bug',
+                'repair': 'tools',
+                'installation': 'wrench'
+            };
+            return icons[category] || 'tools';
+        }
+
+        // Select category
+        function selectCategory(category) {
+            AppState.selectedCategory = category;
+            
+            // Update active category button
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('active');
+                if (card.dataset.category === category) {
+                    card.classList.add('active');
+                }
+            });
+            
+            // Scroll categories container to show active category
+            const activeCard = document.querySelector(`[data-category="${category}"]`);
+            if (activeCard) {
+                activeCard.scrollIntoView({
+                    behavior: 'smooth',
+                    inline: 'center',
+                    block: 'nearest'
+                });
+            }
+            
+            filterAndRenderServices();
+        }
+
+        // Filter and render services
+        function filterAndRenderServices() {
+            let filtered = AppState.services.filter(service => service.is_active !== false);
+            
+            // Apply category filter
+            if (AppState.selectedCategory !== 'all') {
+                filtered = filtered.filter(service => 
+                    service.category === AppState.selectedCategory
+                );
+            }
+            
+            // Apply search filter
+            if (AppState.searchQuery) {
+                const query = AppState.searchQuery.toLowerCase();
+                filtered = filtered.filter(service =>
+                    service.name.toLowerCase().includes(query) ||
+                    service.description.toLowerCase().includes(query) ||
+                    (service.category && service.category.toLowerCase().includes(query))
+                );
+            }
+            
+            // Apply sorting
+            filtered.sort((a, b) => {
+                switch(AppState.sortBy) {
+                    case 'price_low':
+                        return (a.price || 0) - (b.price || 0);
+                    case 'price_high':
+                        return (b.price || 0) - (a.price || 0);
+                    case 'popular':
+                        return (b.rating || 0) - (a.rating || 0);
+                    default: // 'name'
+                        return a.name.localeCompare(b.name);
+                }
+            });
+            
+            AppState.filteredServices = filtered;
+            renderServices();
+        }
+
+        // Render services
+        function renderServices() {
+            const grid = document.getElementById('servicesGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (AppState.filteredServices.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            emptyState.style.display = 'none';
+            
+            grid.innerHTML = '';
+            
+            AppState.filteredServices.forEach((service, index) => {
+                const card = createServiceCard(service, index);
+                grid.appendChild(card);
+            });
+            
+            // Initialize animations for new cards
+            AOS.refresh();
+        }
+
+        // Create service card
+        function createServiceCard(service, index) {
+            const card = document.createElement('div');
+            card.className = 'service-card';
+            card.dataset.serviceId = service.id;
+            card.setAttribute('data-aos', 'fade-up');
+            card.setAttribute('data-aos-delay', (index % 3) * 100);
+            
+            const features = service.features || [
+                'Verified Professionals',
+                'Quality Guaranteed',
+                'Same Day Available',
+                'Satisfaction Assured'
+            ];
+            
+            const durationHours = Math.floor(service.duration_minutes / 60);
+            const durationMinutes = service.duration_minutes % 60;
+            const durationText = durationHours > 0 
+                ? `${durationHours}h ${durationMinutes}m` 
+                : `${durationMinutes}m`;
+            
+            card.innerHTML = `
+                <div class="service-badge">Popular</div>
+                <div class="service-image">
+                    <i class="fas ${service.icon || 'fa-tools'} service-icon"></i>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">${service.name}</h3>
+                    <p class="service-description">${service.description || 'Professional service'}</p>
+                    
+                    <div class="service-features">
+                        ${features.slice(0, 4).map(feature => `
+                            <span class="feature-tag">
+                                <i class="fas fa-check"></i> ${feature}
+                            </span>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="service-footer">
+                        <div>
+                            <div class="service-price">Rs ${service.price?.toLocaleString() || 'N/A'}</div>
+                            <small class="text-muted">Starting price</small>
+                        </div>
+                        <div class="service-meta">
+                            <span class="duration-badge">
+                                <i class="fas fa-clock"></i>
+                                ${durationText}
+                            </span>
+                            <button class="btn-book" onclick="handleBookService(${service.id})">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add click handler for card
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.btn-book') && !e.target.closest('.feature-tag')) {
+                    viewServiceDetails(service.id);
+                }
+            });
+            
+            return card;
+        }
+
+        // View service details
+        async function viewServiceDetails(serviceId) {
+            AppState.currentServiceId = serviceId;
+            
+            try {
+                const response = await fetch(`/api/services/${serviceId}`);
+                
+                if (response.ok) {
+                    const service = await response.json();
+                    showServiceModal(service);
+                } else {
+                    // Fallback to local service data
+                    const service = AppState.services.find(s => s.id == serviceId);
+                    if (service) {
+                        showServiceModal(service);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading service details:', error);
+                const service = AppState.services.find(s => s.id == serviceId);
+                if (service) {
+                    showServiceModal(service);
+                }
+            }
+        }
+
+        // Show service modal
+        function showServiceModal(service) {
+            const modal = new bootstrap.Modal(document.getElementById('serviceModal'));
+            const modalTitle = document.getElementById('modalServiceTitle');
+            const modalBody = document.getElementById('modalServiceBody');
+            const modalBookBtn = document.getElementById('modalBookBtn');
+            
+            modalTitle.textContent = service.name;
+            
+            const features = service.features || [
+                'Verified and background-checked professionals',
+                'Quality service guaranteed',
+                'Same-day service available',
+                'Transparent pricing with no hidden fees',
+                '24/7 customer support'
+            ];
+            
+            modalBody.innerHTML = `
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="rounded-3 bg-gradient-primary p-4 text-center mb-4">
+                            <i class="fas ${service.icon || 'fa-tools'} fa-4x text-white mb-3"></i>
+                            <h4 class="text-white mb-0">${service.name}</h4>
+                        </div>
+                        
+                        <h5 class="mb-3">Service Description</h5>
+                        <p class="text-muted mb-4">${service.description || 'Professional service'}</p>
+                        
+                        <h5 class="mb-3">Key Features</h5>
+                        <ul class="list-unstyled">
+                            ${features.map(feature => `
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    ${feature}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">Pricing Details</h5>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="display-4 fw-bold text-primary">Rs ${service.price?.toLocaleString() || 'N/A'}</div>
+                                    <div class="ms-3">
+                                        <small class="text-muted d-block">Starting Price</small>
+                                        <small class="text-muted">All inclusive</small>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center text-muted mb-2">
+                                    <i class="fas fa-clock me-2"></i>
+                                    <span>Service Duration: ${service.duration_minutes || 120} minutes</span>
+                                </div>
+                                <div class="d-flex align-items-center text-muted">
+                                    <i class="fas fa-shield-alt me-2"></i>
+                                    <span>Quality Guarantee Included</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">Why Choose This Service?</h5>
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-check text-success me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="mb-1">Expert Professionals</h6>
+                                        <p class="text-muted small mb-0">All providers are certified and experienced</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-check text-success me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="mb-1">Same Day Service</h6>
+                                        <p class="text-muted small mb-0">Available for urgent requirements</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-start">
+                                    <i class="fas fa-check text-success me-3 mt-1"></i>
+                                    <div>
+                                        <h6 class="mb-1">Customer Support</h6>
+                                        <p class="text-muted small mb-0">24/7 support for any queries or concerns</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modalBookBtn.onclick = () => handleBookService(service.id);
+            modal.show();
+        }
+
+        // Handle book service
+        function handleBookService(serviceId) {
+            if (!AppState.isAuthenticated) {
+                // Redirect to login with return URL
+                window.location.href = `/login?redirect=/booking&service=${serviceId}`;
+                return;
+            }
+            
+            // Redirect to booking page
+            window.location.href = `/booking?service=${serviceId}`;
+        }
+
+        // Clear all filters
+        function clearFilters() {
+            AppState.selectedCategory = 'all';
+            AppState.searchQuery = '';
+            AppState.sortBy = 'name';
+            
+            // Update UI
+            document.getElementById('searchInput').value = '';
+            document.getElementById('sortSelect').value = 'name';
+            
+            selectCategory('all');
+            filterAndRenderServices();
+            
+            showToast('All filters cleared', 'success');
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toastContainer = document.getElementById('toastContainer');
+            
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center text-bg-${type === 'error' ? 'danger' : type} border-0`;
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            
+            const icon = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle';
+            
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body d-flex align-items-center">
+                        <i class="fas fa-${icon} me-2"></i>
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            const bsToast = new bootstrap.Toast(toast, {
+                autohide: true,
+                delay: 3000
+            });
+            bsToast.show();
+            
+            toast.addEventListener('hidden.bs.toast', () => {
+                toast.remove();
+            });
+        }
+
+        // Initialize event listeners
+        function initializeEventListeners() {
+            // Search input
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', debounce((e) => {
+                AppState.searchQuery = e.target.value;
+                filterAndRenderServices();
+            }, 300));
+            
+            // Sort select
+            const sortSelect = document.getElementById('sortSelect');
+            sortSelect.addEventListener('change', (e) => {
+                AppState.sortBy = e.target.value;
+                filterAndRenderServices();
+            });
+            
+            // Clear filters button
+            const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+            clearFiltersBtn.addEventListener('click', clearFilters);
+            
+            // Check URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+            if (categoryParam && AppState.categories.includes(categoryParam)) {
+                setTimeout(() => selectCategory(categoryParam), 100);
+            }
+            
+            // Service search
+            const serviceParam = urlParams.get('service');
+            if (serviceParam) {
+                setTimeout(() => {
+                    const serviceElement = document.querySelector(`[data-service-id="${serviceParam}"]`);
+                    if (serviceElement) {
+                        serviceElement.scrollIntoView({ behavior: 'smooth' });
+                        serviceElement.classList.add('highlight');
+                        setTimeout(() => serviceElement.classList.remove('highlight'), 2000);
+                    }
+                }, 500);
+            }
+        }
+
+        // Update current year
+        function updateCurrentYear() {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        }
+
+        // Debounce function
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+</body>
+</html>

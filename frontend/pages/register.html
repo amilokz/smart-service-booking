@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Register | SmartServe</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Create a SmartServe account to book professional services">
+    <meta name="keywords" content="register, sign up, smartserve, account, professional services">
+    <meta name="author" content="SmartServe">
+    <meta name="robots" content="noindex, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Register | SmartServe">
+    <meta property="og:description" content="Create your SmartServe account">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smartserve.com/register">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3034/3034848.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3034/3034848.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Bootstrap (for responsive utilities only) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Auth CSS -->
+    <link rel="stylesheet" href="../css/auth.css">
+    
+    <!-- Critical CSS (inline for performance) -->
+    <style>
+        /* Minimal critical CSS */
+        .auth-wrapper {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content -->
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            <div class="auth-card">
+                <!-- Header -->
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <i class="fas fa-concierge-bell"></i>
+                        <h1>SmartServe</h1>
+                    </div>
+                    <h2 class="auth-title">Create Account</h2>
+                    <p class="auth-subtitle">Join thousands of satisfied customers</p>
+                </div>
+                
+                <!-- Alerts -->
+                <div id="alertContainer">
+                    <!-- Alerts will be inserted here -->
+                </div>
+                
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form" novalidate>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               class="form-control" 
+                               placeholder="Enter your email"
+                               required
+                               aria-required="true"
+                               aria-describedby="emailHelp">
+                        <div class="invalid-feedback" id="emailError">
+                            Please enter a valid email address.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name (Optional)</label>
+                        <input type="text" 
+                               id="name" 
+                               name="name" 
+                               class="form-control" 
+                               placeholder="Enter your full name"
+                               aria-describedby="nameHelp">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password *</label>
+                        <div class="password-field">
+                            <input type="password" 
+                                   id="password" 
+                                   name="password" 
+                                   class="form-control" 
+                                   placeholder="Create a strong password"
+                                   required
+                                   aria-required="true"
+                                   minlength="6"
+                                   aria-describedby="passwordHelp"
+                                   oninput="checkPasswordStrength()">
+                            <button type="button" class="password-toggle" id="togglePassword" aria-label="Show password">
+                                <i class="fas fa-eye" id="passwordIcon"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength">
+                            <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                        </div>
+                        <div class="password-strength-text" id="passwordStrengthText"></div>
+                        
+                        <!-- Password Requirements -->
+                        <ul class="password-requirements" id="passwordRequirements">
+                            <li id="reqLength" class="invalid">
+                                <i class="fas fa-times"></i>
+                                <span>At least 6 characters</span>
+                            </li>
+                            <li id="reqUppercase" class="invalid">
+                                <i class="fas fa-times"></i>
+                                <span>One uppercase letter</span>
+                            </li>
+                            <li id="reqLowercase" class="invalid">
+                                <i class="fas fa-times"></i>
+                                <span>One lowercase letter</span>
+                            </li>
+                            <li id="reqNumber" class="invalid">
+                                <i class="fas fa-times"></i>
+                                <span>One number</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="invalid-feedback" id="passwordError">
+                            Please choose a stronger password.
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password *</label>
+                        <div class="password-field">
+                            <input type="password" 
+                                   id="confirmPassword" 
+                                   name="confirmPassword" 
+                                   class="form-control" 
+                                   placeholder="Confirm your password"
+                                   required
+                                   aria-required="true"
+                                   aria-describedby="confirmPasswordHelp"
+                                   oninput="checkPasswordMatch()">
+                            <button type="button" class="password-toggle" id="toggleConfirmPassword" aria-label="Show password">
+                                <i class="fas fa-eye" id="confirmPasswordIcon"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback" id="confirmPasswordError">
+                            Passwords do not match.
+                        </div>
+                        <div class="password-strength-text" id="passwordMatchText"></div>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="termsAgreement" required>
+                        <label class="form-check-label" for="termsAgreement">
+                            I agree to the <a href="#" class="auth-link">Terms of Service</a> and 
+                            <a href="#" class="auth-link">Privacy Policy</a> *
+                        </label>
+                        <div class="invalid-feedback" id="termsError">
+                            You must agree to the terms and conditions.
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn auth-btn-primary" id="registerBtn">
+                        Create Account
+                    </button>
+                </form>
+                
+                <!-- Divider -->
+                <div class="auth-divider">
+                    <span>Or continue with</span>
+                </div>
+                
+                <!-- Social Login -->
+                <div class="social-login">
+                    <a href="#" class="social-btn social-btn-google" aria-label="Sign up with Google">
+                        <i class="fab fa-google"></i>
+                        <span>Continue with Google</span>
+                    </a>
+                    <a href="#" class="social-btn social-btn-facebook" aria-label="Sign up with Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Continue with Facebook</span>
+                    </a>
+                </div>
+                
+                <!-- Links -->
+                <div class="auth-links">
+                    <p>Already have an account? <a href="login.html" class="auth-link">Sign in here</a></p>
+                    <p>By creating an account, you agree to our terms and conditions</p>
+                    <p><a href="../index.html" class="auth-link"><i class="fas fa-arrow-left me-1"></i> Back to Home</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (for modal if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Register JavaScript -->
+    <script>
+        // DOM Elements
+        const registerForm = document.getElementById('registerForm');
+        const registerBtn = document.getElementById('registerBtn');
+        const alertContainer = document.getElementById('alertContainer');
+        
+        // State
+        let isSubmitting = false;
+        let passwordValid = false;
+        let passwordsMatch = false;
+        
+        // Show alert function
+        function showAlert(type, message, duration = 5000) {
+            const existingAlerts = alertContainer.querySelectorAll('.auth-alert');
+            existingAlerts.forEach(alert => alert.remove());
+            
+            const alert = document.createElement('div');
+            alert.className = `auth-alert alert-${type} show`;
+            alert.setAttribute('role', 'alert');
+            alert.setAttribute('aria-live', 'assertive');
+            
+            let icon = 'info-circle';
+            if (type === 'success') icon = 'check-circle';
+            if (type === 'danger') icon = 'exclamation-circle';
+            
+            alert.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <div class="auth-alert-content">${message}</div>
+                <button type="button" class="auth-alert-close" aria-label="Close alert">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            alertContainer.appendChild(alert);
+            
+            if (duration) {
+                setTimeout(() => {
+                    if (alert.parentNode) {
+                        alert.remove();
+                    }
+                }, duration);
+            }
+            
+            const closeBtn = alert.querySelector('.auth-alert-close');
+            closeBtn.addEventListener('click', () => alert.remove());
+            
+            alert.focus();
+        }
+        
+        // Toggle password visibility
+        function togglePasswordVisibility(fieldId, iconId) {
+            const passwordInput = document.getElementById(fieldId);
+            const passwordIcon = document.getElementById(iconId);
+            
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            
+            passwordIcon.className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+            
+            // Update aria-label
+            const toggleBtn = passwordInput.parentNode.querySelector('.password-toggle');
+            toggleBtn.setAttribute('aria-label', 
+                type === 'password' ? 'Show password' : 'Hide password'
+            );
+        }
+        
+        // Check password strength
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthBar = document.getElementById('passwordStrengthBar');
+            const strengthText = document.getElementById('passwordStrengthText');
+            
+            // Requirements
+            const reqLength = document.getElementById('reqLength');
+            const reqUppercase = document.getElementById('reqUppercase');
+            const reqLowercase = document.getElementById('reqLowercase');
+            const reqNumber = document.getElementById('reqNumber');
+            
+            let strength = 0;
+            let requirementsMet = 0;
+            
+            // Check length
+            if (password.length >= 6) {
+                reqLength.className = 'valid';
+                reqLength.innerHTML = '<i class="fas fa-check"></i><span>At least 6 characters</span>';
+                strength += 25;
+                requirementsMet++;
+            } else {
+                reqLength.className = 'invalid';
+                reqLength.innerHTML = '<i class="fas fa-times"></i><span>At least 6 characters</span>';
+            }
+            
+            // Check uppercase
+            if (/[A-Z]/.test(password)) {
+                reqUppercase.className = 'valid';
+                reqUppercase.innerHTML = '<i class="fas fa-check"></i><span>One uppercase letter</span>';
+                strength += 25;
+                requirementsMet++;
+            } else {
+                reqUppercase.className = 'invalid';
+                reqUppercase.innerHTML = '<i class="fas fa-times"></i><span>One uppercase letter</span>';
+            }
+            
+            // Check lowercase
+            if (/[a-z]/.test(password)) {
+                reqLowercase.className = 'valid';
+                reqLowercase.innerHTML = '<i class="fas fa-check"></i><span>One lowercase letter</span>';
+                strength += 25;
+                requirementsMet++;
+            } else {
+                reqLowercase.className = 'invalid';
+                reqLowercase.innerHTML = '<i class="fas fa-times"></i><span>One lowercase letter</span>';
+            }
+            
+            // Check number
+            if (/[0-9]/.test(password)) {
+                reqNumber.className = 'valid';
+                reqNumber.innerHTML = '<i class="fas fa-check"></i><span>One number</span>';
+                strength += 25;
+                requirementsMet++;
+            } else {
+                reqNumber.className = 'invalid';
+                reqNumber.innerHTML = '<i class="fas fa-times"></i><span>One number</span>';
+            }
+            
+            // Update strength bar
+            strengthBar.style.width = `${strength}%`;
+            
+            // Update strength text and color
+            if (strength <= 25) {
+                strengthBar.style.backgroundColor = '#ef476f'; // Red
+                strengthText.textContent = 'Weak password';
+                strengthText.style.color = '#ef476f';
+                passwordValid = false;
+            } else if (strength <= 50) {
+                strengthBar.style.backgroundColor = '#f8961e'; // Orange
+                strengthText.textContent = 'Fair password';
+                strengthText.style.color = '#f8961e';
+                passwordValid = requirementsMet >= 3;
+            } else if (strength <= 75) {
+                strengthBar.style.backgroundColor = '#4cc9f0'; // Blue
+                strengthText.textContent = 'Good password';
+                strengthText.style.color = '#4cc9f0';
+                passwordValid = true;
+            } else {
+                strengthBar.style.backgroundColor = '#06d6a0'; // Green
+                strengthText.textContent = 'Strong password';
+                strengthText.style.color = '#06d6a0';
+                passwordValid = true;
+            }
+            
+            // Check confirm password match
+            checkPasswordMatch();
+        }
+        
+        // Check password match
+        function checkPasswordMatch() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const matchText = document.getElementById('passwordMatchText');
+            
+            if (!confirmPassword) {
+                matchText.textContent = '';
+                passwordsMatch = false;
+                return;
+            }
+            
+            if (password === confirmPassword) {
+                matchText.textContent = '✓ Passwords match';
+                matchText.style.color = '#06d6a0';
+                passwordsMatch = true;
+            } else {
+                matchText.textContent = '✗ Passwords do not match';
+                matchText.style.color = '#ef476f';
+                passwordsMatch = false;
+            }
+        }
+        
+        // Validate form
+        function validateForm() {
+            let isValid = true;
+            
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!email.value.trim()) {
+                email.classList.add('is-invalid');
+                emailError.textContent = 'Email is required';
+                isValid = false;
+            } else if (!emailRegex.test(email.value)) {
+                email.classList.add('is-invalid');
+                emailError.textContent = 'Please enter a valid email address';
+                isValid = false;
+            } else {
+                email.classList.remove('is-invalid');
+                email.classList.add('is-valid');
+            }
+            
+            // Password validation
+            const password = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+            
+            if (!password.value) {
+                password.classList.add('is-invalid');
+                passwordError.textContent = 'Password is required';
+                isValid = false;
+            } else if (!passwordValid) {
+                password.classList.add('is-invalid');
+                passwordError.textContent = 'Please choose a stronger password';
+                isValid = false;
+            } else {
+                password.classList.remove('is-invalid');
+                password.classList.add('is-valid');
+            }
+            
+            // Confirm password validation
+            const confirmPassword = document.getElementById('confirmPassword');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            
+            if (!confirmPassword.value) {
+                confirmPassword.classList.add('is-invalid');
+                confirmPasswordError.textContent = 'Please confirm your password';
+                isValid = false;
+            } else if (!passwordsMatch) {
+                confirmPassword.classList.add('is-invalid');
+                confirmPasswordError.textContent = 'Passwords do not match';
+                isValid = false;
+            } else {
+                confirmPassword.classList.remove('is-invalid');
+                confirmPassword.classList.add('is-valid');
+            }
+            
+            // Terms validation
+            const terms = document.getElementById('termsAgreement');
+            const termsError = document.getElementById('termsError');
+            
+            if (!terms.checked) {
+                termsError.style.display = 'block';
+                isValid = false;
+            } else {
+                termsError.style.display = 'none';
+            }
+            
+            return isValid;
+        }
+        
+        // Clear validation states
+        function clearValidation() {
+            const inputs = registerForm.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.classList.remove('is-invalid', 'is-valid');
+            });
+            
+            document.getElementById('termsError').style.display = 'none';
+        }
+        
+        // Handle form submission
+        async function handleRegister(e) {
+            e.preventDefault();
+            
+            if (isSubmitting) return;
+            
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Get form data
+            const email = document.getElementById('email').value.trim();
+            const name = document.getElementById('name').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Update button state
+            registerBtn.disabled = true;
+            registerBtn.innerHTML = '<span class="spinner"></span> Creating account...';
+            isSubmitting = true;
+            
+            try {
+                // Make API request
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password, name: name || null }),
+                    credentials: 'include'
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Success
+                    showAlert('success', data.message || 'Account created successfully! Redirecting...');
+                    
+                    // Redirect after delay
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1500);
+                    
+                } else {
+                    // Error
+                    showAlert('danger', data.message || 'Registration failed. Please try again.');
+                    
+                    // Clear passwords
+                    document.getElementById('password').value = '';
+                    document.getElementById('confirmPassword').value = '';
+                    clearValidation();
+                    checkPasswordStrength();
+                    
+                    // Reset button
+                    registerBtn.disabled = false;
+                    registerBtn.innerHTML = 'Create Account';
+                    isSubmitting = false;
+                }
+                
+            } catch (error) {
+                console.error('Registration error:', error);
+                showAlert('danger', 'Network error. Please check your connection and try again.');
+                
+                // Reset button
+                registerBtn.disabled = false;
+                registerBtn.innerHTML = 'Create Account';
+                isSubmitting = false;
+            }
+        }
+        
+        // Check if already logged in
+        async function checkAuthStatus() {
+            try {
+                const response = await fetch('/api/user', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    // Already logged in, redirect to dashboard
+                    window.location.href = '/dashboard';
+                }
+            } catch (error) {
+                // Not logged in, stay on page
+                console.log('Not authenticated');
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check auth status
+            checkAuthStatus();
+            
+            // Event listeners
+            registerForm.addEventListener('submit', handleRegister);
+            
+            // Password toggle listeners
+            document.getElementById('togglePassword').addEventListener('click', function() {
+                togglePasswordVisibility('password', 'passwordIcon');
+            });
+            
+            document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+                togglePasswordVisibility('confirmPassword', 'confirmPasswordIcon');
+            });
+            
+            // Allow toggle on Enter key
+            document.querySelectorAll('.password-toggle').forEach(btn => {
+                btn.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const field = this.parentNode.querySelector('input').id;
+                        const icon = this.querySelector('i').id;
+                        togglePasswordVisibility(field, icon);
+                    }
+                });
+            });
+            
+            // Real-time validation
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            
+            emailInput.addEventListener('blur', () => validateForm());
+            passwordInput.addEventListener('blur', () => validateForm());
+            confirmPasswordInput.addEventListener('blur', () => validateForm());
+            
+            // Clear validation on input
+            emailInput.addEventListener('input', () => {
+                emailInput.classList.remove('is-invalid', 'is-valid');
+            });
+            
+            passwordInput.addEventListener('input', () => {
+                passwordInput.classList.remove('is-invalid', 'is-valid');
+                checkPasswordStrength();
+            });
+            
+            confirmPasswordInput.addEventListener('input', () => {
+                confirmPasswordInput.classList.remove('is-invalid', 'is-valid');
+                checkPasswordMatch();
+            });
+            
+            // Terms checkbox
+            document.getElementById('termsAgreement').addEventListener('change', function() {
+                document.getElementById('termsError').style.display = 'none';
+            });
+            
+            // Initialize password check
+            checkPasswordStrength();
+        });
+        
+        // Handle Enter key in form
+        registerForm.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.tagName !== 'BUTTON' && e.target.type !== 'submit') {
+                e.preventDefault();
+                handleRegister(e);
+            }
+        });
+    </script>
+</body>
+</html>
